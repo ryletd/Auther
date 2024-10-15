@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+
+  "name": "Auther",
+  "description": "Extension for 2fa auths",
+  "version": "1.0",
+
+  "icons": {
+    "512": "favicon.png"
+  },
+
+  "action": {
+    "default_title": "Click Me",
+    "default_popup": "popup.html"
+  }
+}
