@@ -1,15 +1,9 @@
-type MainProps = {
-  mainPage?: boolean;
-};
-
-export const Main = ({ mainPage }: MainProps) => {
+export const Main = () => {
   return (
     <main>
-      {mainPage && (
-        <a href={`chrome-extension://${chrome.runtime.id}/options.html`} target="_blank">
-          Own Page
-        </a>
-      )}
+      <a href={`chrome-extension://${chrome.runtime.id}/options.html`} target="_blank">
+        Options
+      </a>
     </main>
   );
 };

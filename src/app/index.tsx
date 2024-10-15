@@ -6,8 +6,4 @@ type AppProps = {
   mainPage?: boolean;
 };
 
-export const App = ({ mainPage = true }: AppProps) => (
-  <StrictMode>
-    <Main mainPage={mainPage} />
-  </StrictMode>
-);
+export const App = ({ mainPage = true }: AppProps) => <StrictMode>{mainPage ? <Main /> : <>Options</>}</StrictMode>;
