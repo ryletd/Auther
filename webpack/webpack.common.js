@@ -11,6 +11,7 @@ const DEV = process.env.DEV === "true";
 module.exports = {
   entry: {
     index: resolve(rootDir, "src", "index.tsx"),
+    options: resolve(rootDir, "src", "options.tsx"),
   },
   output: {
     path: resolve(rootDir, "dist", "js"),

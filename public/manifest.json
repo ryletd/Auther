@@ -10,7 +10,9 @@
   },
 
   "action": {
-    "default_title": "Click Me",
-    "default_popup": "popup.html"
-  }
+    "default_title": "Auther",
+    "default_popup": "index.html"
+  },
+
+  "options_page": "options.html"
 }
