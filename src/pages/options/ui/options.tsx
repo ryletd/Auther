@@ -1,3 +1,10 @@
+import { Header } from "@/entities";
+
 export const Options = () => {
-  return <main className="container"></main>;
+  return (
+    <main>
+      <Header />
+      <div className="container"></div>
+    </main>
+  );
 };
