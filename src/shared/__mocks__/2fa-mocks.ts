@@ -1,4 +1,4 @@
-export const twoFactorList = [
+export const TWO_FACTOR_LIST = [
   {
     icon: "https://i.ibb.co/HnzWby3/e4d42294404e.png",
     name: "Binance",
