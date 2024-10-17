@@ -1,3 +1,5 @@
+import { TwoFactorAuthList } from "@/widgets";
+
 import OpenLinkIcon from "@/shared/assets/open-link.png";
 
 import "./main.sass";
@@ -9,6 +11,7 @@ export const Main = () => {
         Options
         <img src={OpenLinkIcon} alt="open-link" className="link-picture" />
       </a>
+      <TwoFactorAuthList />
     </main>
   );
 };
