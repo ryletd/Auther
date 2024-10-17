@@ -8,7 +8,7 @@ import SettingsIcon from "@/shared/assets/settings.png";
 import "./header.sass";
 
 export const Header = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(!false);
 
   return (
     <header className="header-wrapper">
@@ -17,9 +17,6 @@ export const Header = () => {
         <Button className="settings-button" onClick={() => setOpenModal((isOpened) => !isOpened)}>
           <img src={SettingsIcon} alt="settings" />
         </Button>
-        {/* <button className="settings-button" onClick={() => setOpenModal((isOpened) => !isOpened)}>
-          <img src={SettingsIcon} alt="settings" />
-        </button> */}
       </div>
       <Modal open={openModal} width="600px" onClose={() => setOpenModal((isOpened) => !isOpened)}>
         <SettingsForm />
