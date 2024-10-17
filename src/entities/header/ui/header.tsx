@@ -1,15 +1,12 @@
 import { useState } from "react";
 
-import { Modal, Button } from "@/shared";
+import { Modal, Button, getAutherConfig, saveAutherConfig } from "@/shared";
 import { SettingsForm } from "@/entities";
 
 import Favicon from "@/shared/assets/favicon.png";
 import SettingsIcon from "@/shared/assets/settings.png";
 import ImportIcon from "@/shared/assets/import.png";
 import ExportIcon from "@/shared/assets/export.png";
-
-import { getAutherConfig } from "@/shared";
-import { saveAutherConfig } from "@/shared";
 
 import "./header.sass";
 
@@ -24,7 +21,7 @@ export const Header = () => {
           Auther
         </h2>
         <div className="menu">
-          <Button className="header-button" onClick={() => saveAutherConfig({})}>
+          <Button className="header-button" onClick={() => {}}>
             <img src={ImportIcon} alt="import" />
           </Button>
           <Button className="header-button" onClick={() => {}}>

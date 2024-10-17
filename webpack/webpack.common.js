@@ -70,5 +70,6 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: ".", to: "../", context: "public" }],
     }),
+    new webpack.ProvidePlugin({ process: "process/browser" }),
   ],
 };
