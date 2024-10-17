@@ -1,4 +1,4 @@
-import { TwoFactorAuthItem } from "@/widgets/two-factor-auth-item";
+import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
 import { TWO_FACTOR_LIST } from "@/shared";
 
