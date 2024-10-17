@@ -1,4 +1,4 @@
-import { TwoFactorAuthList } from "@/widgets/two-factor-auth-list";
+import { TwoFactorAuthList } from "@/widgets";
 
 import OpenLinkIcon from "@/shared/assets/open-link.png";
 

@@ -1,7 +1,5 @@
 import "./two-factor-auth-item.sass";
 
-import type { FC } from "react";
-
 type TwoFactorAuthItemProps = {
   icon: string;
   name: string;

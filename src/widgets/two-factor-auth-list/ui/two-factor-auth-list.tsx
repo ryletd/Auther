@@ -1,6 +1,6 @@
 import { TwoFactorAuthItem } from "@/widgets/two-factor-auth-item";
 
-import { TWO_FACTOR_LIST } from "@/shared/__mocks__/2fa-mocks";
+import { TWO_FACTOR_LIST } from "@/shared";
 
 import "./two-factor-auth-list.sass";
 
