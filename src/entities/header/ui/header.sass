@@ -6,19 +6,36 @@
 
 .header
   height: 100%
-  max-width: 600px
+  max-width: 620px
+  padding: 0 1rem
   margin: 0 auto
   display: flex
   align-items: center
 
   .title
+    display: flex
+    gap: 1rem
+    align-items: center
     color: #FFFFFF
     font-weight: 600
-
-  .settings-button
-    font-size: 1.6rem
-    padding: 0.5rem
+    user-select: none
 
     & > img
-      height: 2rem
-      width: 2rem
+      pointer-events: none
+      height: 3rem
+      width: 3rem
+
+  .menu
+    display: flex
+    gap: 1rem
+    margin-left: auto
+
+    .header-button
+      font-size: 1.6rem
+      padding: 0.5rem
+
+      & > img
+        pointer-events: none
+        user-select: none
+        height: 2rem
+        width: 2rem

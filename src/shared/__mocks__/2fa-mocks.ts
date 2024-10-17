@@ -1,11 +1,11 @@
 export const TWO_FACTOR_LIST = [
   {
-    icon: "https://i.ibb.co/HnzWby3/e4d42294404e.png",
+    icon: "https://static-00.iconduck.com/assets.00/binance-icon-2048x2048-eh77cmwj.png",
     name: "Binance",
     code: "DSJFLKSJDKLJREJLGXFJ",
   },
   {
-    icon: "https://i.ibb.co/vwwGqKc/46bb47d22a07.png",
+    icon: "https://crypto-central.io/library/uploads/bybit_logo-min.png",
     name: "Bybit",
     code: "GJFLDKGJERWLTJLERTJLERT",
   },

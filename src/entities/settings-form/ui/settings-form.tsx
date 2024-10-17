@@ -16,6 +16,7 @@ const defaultValues: SettingsFormValues = {
   name: "",
   secret: "",
   icon: null,
+  addedDate: 0,
 };
 
 export const SettingsForm = () => {
