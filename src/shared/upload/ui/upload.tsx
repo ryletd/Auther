@@ -1,23 +1,25 @@
+import classNames from "classnames";
+
 import "./upload.sass";
 
-import type { UseFormRegister, FieldErrors, RegisterOptions } from "react-hook-form";
-import type { Secret } from "@/shared";
+import type { UseFormRegister, FieldErrors, RegisterOptions, FieldValues, Path } from "react-hook-form";
 
-type UploadProps = {
-  label: string;
-  name: keyof Secret;
-  register: UseFormRegister<Secret>;
-  errors: FieldErrors<Secret>;
-  registerOptions?: RegisterOptions<Secret>;
-  type?: "text" | "password";
+type InputProps<T extends FieldValues> = {
+  label?: string;
+  name: Path<T>;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+  registerOptions?: RegisterOptions<T>;
 };
 
-export const Upload = ({ label, name, register, errors, registerOptions, type = "text" }: UploadProps) => {
-  return (
-    <div>
-      <label htmlFor={name}>{label}</label>
-      <input id={name} type={type} {...register(name, registerOptions)} />
-      {errors[name] && <span>{errors[name].message}</span>}
-    </div>
-  );
-};
+export const Upload = <T extends FieldValues>({ label, name, register, errors, registerOptions }: InputProps<T>) => (
+  <div className="upload-wrapper">
+    {label && <label className="label">{label}</label>}
+    <input
+      className={classNames("upload", { error: errors[name] })}
+      type="file"
+      accept="image/*"
+      {...register(name, registerOptions)}
+    />
+  </div>
+);

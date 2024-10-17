@@ -1,23 +1,38 @@
+import classNames from "classnames";
+
 import "./input.sass";
 
-import type { UseFormRegister, FieldErrors, RegisterOptions } from "react-hook-form";
-import type { Secret } from "@/shared";
+import type { UseFormRegister, FieldErrors, RegisterOptions, FieldValues, Path } from "react-hook-form";
 
-type InputProps = {
-  label: string;
-  name: keyof Secret;
-  register: UseFormRegister<Secret>;
-  errors: FieldErrors<Secret>;
-  registerOptions?: RegisterOptions<Secret>;
+type InputProps<T extends FieldValues> = {
+  label?: string;
+  name: Path<T>;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+  registerOptions?: RegisterOptions<T>;
   type?: "text" | "password";
 };
 
-export const Input = ({ label, name, register, errors, registerOptions, type = "text" }: InputProps) => (
+export const Input = <T extends FieldValues>({
+  label,
+  name,
+  register,
+  errors,
+  registerOptions,
+  type = "text",
+}: InputProps<T>) => (
   <div className="input-wrapper">
-    <label className="label" htmlFor={name}>
-      {label}
-    </label>
-    <input className="input" id={name} type={type} {...register(name, registerOptions)} autoComplete="off" />
-    {errors[name] && <span className="error">{errors[name].message}</span>}
+    {label && (
+      <label className="label" htmlFor={name}>
+        {label}
+      </label>
+    )}
+    <input
+      className={classNames("input", { error: errors[name] })}
+      id={name}
+      type={type}
+      autoComplete="off"
+      {...register(name, registerOptions)}
+    />
   </div>
 );

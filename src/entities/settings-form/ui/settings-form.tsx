@@ -8,36 +8,54 @@ import "./settings-form.sass";
 
 import type { Secret } from "@/shared";
 
+export type SettingsFormValues = Secret & {
+  icon: FileList | null;
+};
+
+const defaultValues: SettingsFormValues = {
+  name: "",
+  secret: "",
+  icon: null,
+};
+
 export const SettingsForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Secret>();
+  } = useForm<SettingsFormValues>({ defaultValues });
 
-  const onSubmit = (values: Secret) => {
+  const onSubmit = (values: SettingsFormValues) => {
     console.log(values);
   };
 
   return (
     <form className="settings-form" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="title">Add new 2fa code</h2>
-      <Input
+      <Input<SettingsFormValues>
         name="name"
         label="Name"
         register={register}
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Input
+      <Input<SettingsFormValues>
         name="secret"
         label="Secret code"
         register={register}
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Upload name="icon" label="Icon" register={register} errors={errors} registerOptions={{ required: true }} />
-      <Button type="submit" className="save-button">Save</Button>
+      <Upload<SettingsFormValues>
+        name="icon"
+        label="Icon"
+        register={register}
+        errors={errors}
+        registerOptions={{ required: true }}
+      />
+      <Button type="submit" className="save-button">
+        Save
+      </Button>
     </form>
   );
 };
