@@ -1,35 +1,22 @@
-import { useState, useEffect } from "react";
-
 import "./progressbar.sass";
 
-export const Progressbar = () => {
-  const [progress, setProgress] = useState(0);
-  const maxProgress = 30;
+type ProgressbarProps = {
+  progress: number;
+};
 
-  useEffect(() => {
-    let startTimestamp: number | null = null;
+const LIMIT = 30;
 
-    const animateProgress = (timestamp: number) => {
-      startTimestamp ??= timestamp;
-      const progress = Math.min(((timestamp - startTimestamp) / 30000) * maxProgress, maxProgress);
-
-      setProgress(progress);
-      progress < maxProgress && requestAnimationFrame(animateProgress);
-    };
-
-    const animationFrame = requestAnimationFrame(animateProgress);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [maxProgress]);
+export const Progressbar = ({ progress }: ProgressbarProps) => {
+  const percent = (LIMIT - progress) * (360 / LIMIT);
+  const warning = progress <= 5;
 
   return (
     <div
-      className="circular"
-      style={{
-        background: `conic-gradient(#32ff7e ${progress * (360 / maxProgress)}deg, #777777 ${progress * (360 / maxProgress)}deg)`,
-      }}
+      className="progressbar-wrapper"
+      style={{ background: `conic-gradient(${warning ? "#ff3838" : "#32ff7e"} ${percent}deg, #777777 ${percent}deg)` }}
     >
-      <div className="circular-progress">
-        <div className="progress-text">{Math.round(progress)}</div>
+      <div className="progressbar">
+        <div className="progressbar-text">{progress}</div>
       </div>
     </div>
   );
