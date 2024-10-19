@@ -6,7 +6,10 @@ import { Header } from "@/entities";
 import { getAutherConfig } from "@/shared";
 
 export const Options = () => {
-  const setAutherConfig = useStore((state) => state.setAutherConfig);
+  const { setError, setAutherConfig } = useStore((state) => ({
+    setError: state.setError,
+    setAutherConfig: state.setAutherConfig,
+  }));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +17,11 @@ export const Options = () => {
         const result = await getAutherConfig();
         setAutherConfig(result);
       } catch (error) {
-        console.error("Ошибка:", error);
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("An error occurred while retrieving the configuration");
+        }
       }
     };
 
