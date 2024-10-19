@@ -1,6 +1,16 @@
+@import "../../../../../shared/colors"
+  
 .wrapper
   display: flex
   align-items: center
+  padding: 0.6rem
+  border: 2px solid #32ff7e
+  border-radius: 0.6rem
+  background: $black-2
+  cursor: pointer
+
+  &:hover
+    border: 2px solid #ff3838
 
 .icon
   border-radius: 50%
@@ -9,11 +19,19 @@
 
 .inner-wrapper
   display: flex
-  margin-left: 0.4rem
+  align-items: start
+  margin-left: 0.6rem
   flex-direction: column
   gap: 0.4rem
-  max-width: 34rem
+  max-width: 27rem
   overflow: hidden   
+
+.actions
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-left: auto
+  gap: 1rem
 
 .name, .code
   max-width: 100% 
@@ -27,4 +45,19 @@
 
 .code
   color: #9198a1
+
+.copy-btn
+  cursor: pointer
+  width: 2rem
+  height: 2rem
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 0
+  border: none
+  background: transparent
   
+
+.copy-btn img
+  width: 2rem
+  height: 2rem
