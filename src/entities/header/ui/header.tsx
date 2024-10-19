@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import { Modal, Button, exportAutherConfig, readFile, importAutherConfig } from "@/shared";
+import { Modal, Button, exportAutherConfig, readFile, importAutherConfig, getAutherConfig } from "@/shared";
 import { SettingsForm } from "@/entities";
 
 import Favicon from "@/shared/assets/favicon.png";
@@ -16,6 +16,7 @@ import type { ChangeEvent } from "react";
 export const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   const importInputRef = useRef<HTMLInputElement | null>(null);
+  const newSecretCodes = 12;
 
   const onImportFileUpload = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const file = target.files?.[0];
@@ -40,6 +41,9 @@ export const Header = () => {
           </Button>
           <Button className="header-button" onClick={() => setOpenModal((isOpened) => !isOpened)}>
             <img src={SettingsIcon} alt="settings" />
+            {newSecretCodes && (
+              <div className="header-button-badge">{newSecretCodes > 99 ? "99+" : newSecretCodes}</div>
+            )}
           </Button>
           <Button className="header-button" onClick={() => importInputRef.current?.click()}>
             <img src={ImportIcon} alt="import" />

@@ -37,7 +37,7 @@ export const SettingsForm = ({ onSave }: SettingsFormProps) => {
 
     const extendedValues: Secret = {
       name: values.name,
-      secret: values.secret.replace(/\s/g, ""),
+      secret: values.secret.replace(/\s/g, "").toUpperCase(),
       addedDate: Date.now(),
       icon,
     };
