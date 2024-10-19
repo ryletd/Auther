@@ -5,21 +5,22 @@
   flex-direction: column
   gap: 1rem
   padding: 1rem
-  
-.link
-  display: flex
-  align-items: center
-  margin: 0 auto
-  background: $black-2
-  color: #FFFFFF
-  padding: 1rem 0 1rem 2rem
-  border-radius: 0.5rem
-  border: 2px solid $green
-  transition: 0.2s
 
-  &:hover
-    border: 2px solid $red
+  .link
+    user-select: none
+    display: flex
+    align-items: center
+    margin: 1rem auto 0
+    background: $black-2
+    color: #FFFFFF
+    padding: 1rem 0 1rem 2rem
+    border-radius: 0.5rem
+    box-shadow: 0 0 0 0.2rem rgba($green, 0.5)
+    transition: 0.2s
 
-  &-picture
-    height: 2rem
-    margin: 0 1rem
+    &:hover
+      box-shadow: 0 0 0 0.4rem $green
+
+    &-picture
+      height: 2rem
+      margin: 0 1rem

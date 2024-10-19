@@ -1,10 +1,13 @@
+import { TwoFactorAuthList } from "@/widgets";
 import { Header } from "@/entities";
 
 export const Options = () => {
   return (
     <main>
       <Header />
-      <div className="container"></div>
+      <div className="container">
+        <TwoFactorAuthList />
+      </div>
     </main>
   );
 };

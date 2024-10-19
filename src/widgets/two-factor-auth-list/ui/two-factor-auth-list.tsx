@@ -1,13 +1,25 @@
+import { useEffect, useState } from "react";
+
 import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
-import { TWO_FACTOR_LIST } from "@/shared";
+import { getAutherConfig } from "@/shared";
+
+import type { Secret } from "@/shared";
 
 import "./two-factor-auth-list.sass";
 
-export const TwoFactorAuthList = () => (
-  <div className="list-wrapper">
-    {TWO_FACTOR_LIST.map(({ icon, name, secret }) => (
-      <TwoFactorAuthItem key={secret} icon={icon} name={name} code={secret} />
-    ))}
-  </div>
-);
+export const TwoFactorAuthList = () => {
+  const [secrets, setSecrets] = useState<Secret[]>([]);
+
+  useEffect(() => {
+    getAutherConfig().then(({ secrets }) => setSecrets(secrets));
+  }, []);
+
+  return (
+    <div className="list-wrapper">
+      {secrets.map((secret) => (
+        <TwoFactorAuthItem key={secret.addedDate} secret={secret} />
+      ))}
+    </div>
+  );
+};

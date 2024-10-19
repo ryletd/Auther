@@ -25,7 +25,7 @@ export const Progressbar = () => {
     <div
       className="circular"
       style={{
-        background: `conic-gradient(#32ff7e ${progress * (360 / maxProgress)}deg, lightgray ${progress * (360 / maxProgress)}deg)`,
+        background: `conic-gradient(#32ff7e ${progress * (360 / maxProgress)}deg, #777777 ${progress * (360 / maxProgress)}deg)`,
       }}
     >
       <div className="circular-progress">

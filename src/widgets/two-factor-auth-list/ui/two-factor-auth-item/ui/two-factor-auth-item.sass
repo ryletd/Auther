@@ -1,63 +1,76 @@
 @import "../../../../../shared/colors"
-  
+
 .wrapper
+  cursor: pointer
   display: flex
   align-items: center
-  padding: 0.6rem
-  border: 2px solid #32ff7e
-  border-radius: 0.6rem
+  padding: 1rem
+  box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
+  border-radius: 1rem
   background: $black-2
-  cursor: pointer
+  transition: 0.2s
 
   &:hover
-    border: 2px solid #ff3838
+    box-shadow: 0 0 0 0.4rem $green
 
-.icon
-  border-radius: 50%
-  width: 3rem
-  height: 3rem
+  &.copied
+    box-shadow: 0 0 0 0.4rem $green
+    background: rgba($green, 0.2)
 
-.inner-wrapper
-  display: flex
-  align-items: start
-  margin-left: 0.6rem
-  flex-direction: column
-  gap: 0.4rem
-  max-width: 27rem
-  overflow: hidden   
+  .icon
+    user-select: none
+    pointer-events: none
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: 50%
+    width: 3rem
+    height: 3rem
+    border: 0.3rem solid $green
 
-.actions
-  display: flex
-  align-items: center
-  justify-content: center
-  margin-left: auto
-  gap: 1rem
+  .inner-wrapper
+    display: flex
+    align-items: start
+    margin-left: 1rem
+    flex-direction: column
+    gap: 0.4rem
+    max-width: 27rem
+    overflow: hidden
 
-.name, .code
-  max-width: 100% 
-  white-space: nowrap         
-  overflow: hidden             
-  text-overflow: ellipsis      
-  
-.name
-  font-weight: 600
-  color: #f0f6fc
+  .actions
+    display: flex
+    align-items: center
+    justify-content: center
+    margin-left: auto
+    gap: 1rem
 
-.code
-  color: #9198a1
+  .name, .code
+    max-width: 100%
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
 
-.copy-btn
-  cursor: pointer
-  width: 2rem
-  height: 2rem
-  display: flex
-  justify-content: center
-  align-items: center
-  padding: 0
-  border: none
-  background: transparent
-  
+  .name
+    user-select: none
+    color: #9198a1
+    font-size: 1.4rem
+    line-height: 1.6rem
 
-.copy-btn img
-  width: 2rem
-  height: 2rem
+  .code
+    font-weight: 600
+    font-size: 1.8rem
+
+  .copy-button
+    background: transparent
+    opacity: 0
+    width: 2rem
+    height: 2rem
+    padding: 0
+    transition: 0.2s
+
+    &.copied
+      opacity: 1
+
+    & img
+      width: 2rem
+      height: 2rem
