@@ -8,7 +8,7 @@ import "./settings-form.sass";
 
 import type { Secret } from "@/shared";
 
-export type SettingsFormValues = Secret & {
+export type SettingsFormValues = Omit<Secret, "addedDate"> & {
   icon: FileList | null;
 };
 
@@ -16,7 +16,6 @@ const defaultValues: SettingsFormValues = {
   name: "",
   secret: "",
   icon: null,
-  addedDate: 0,
 };
 
 export const SettingsForm = () => {
@@ -27,7 +26,9 @@ export const SettingsForm = () => {
   } = useForm<SettingsFormValues>({ defaultValues });
 
   const onSubmit = (values: SettingsFormValues) => {
-    console.log(values);
+    const extendedValues: Secret = { ...values, secret: values.secret.replace(/\s/g, ""), addedDate: Date.now() };
+
+    console.log(extendedValues);
   };
 
   return (
@@ -47,13 +48,7 @@ export const SettingsForm = () => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Upload<SettingsFormValues>
-        name="icon"
-        label="Icon"
-        register={register}
-        errors={errors}
-        registerOptions={{ required: true }}
-      />
+      <Upload<SettingsFormValues> name="icon" label="Icon" register={register} errors={errors} />
       <Button type="submit" className="save-button">
         Save
       </Button>

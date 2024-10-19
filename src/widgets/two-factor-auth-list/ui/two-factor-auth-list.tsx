@@ -6,8 +6,8 @@ import "./two-factor-auth-list.sass";
 
 export const TwoFactorAuthList = () => (
   <div className="list-wrapper">
-    {TWO_FACTOR_LIST.map(({ icon, name, code }) => (
-      <TwoFactorAuthItem key={code} icon={icon} name={name} code={code} />
+    {TWO_FACTOR_LIST.map(({ icon, name, secret }) => (
+      <TwoFactorAuthItem key={secret} icon={icon} name={name} code={secret} />
     ))}
   </div>
 );

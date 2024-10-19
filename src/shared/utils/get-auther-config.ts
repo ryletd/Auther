@@ -1,9 +1,8 @@
 import type { AutherConfig } from "@/shared";
 
 const DEFAULT_AUTHER_CONFIG: AutherConfig = {
-  lastSave: 0,
-  lastUpdate: 0,
-  savedSecretsAmount: 0,
+  lastExportTime: 0,
+  exportedSecrets: [],
   secrets: [],
 };
 
