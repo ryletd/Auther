@@ -51,7 +51,7 @@ export const Header = () => {
         </div>
       </div>
       <Modal open={openModal} width="600px" onClose={() => setOpenModal((isOpened) => !isOpened)}>
-        <SettingsForm />
+        <SettingsForm onSave={() => setOpenModal((isOpened) => !isOpened)} />
       </Modal>
     </header>
   );

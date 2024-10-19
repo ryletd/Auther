@@ -1,14 +1,16 @@
 import { useForm } from "react-hook-form";
 
-import { Input } from "@/shared";
-import { Upload } from "@/shared";
-import { Button } from "@/shared";
+import { Input, Upload, Button, readFile, addSecretCode } from "@/shared";
 
 import "./settings-form.sass";
 
 import type { Secret } from "@/shared";
 
-export type SettingsFormValues = Omit<Secret, "addedDate"> & {
+type SettingsFormProps = {
+  onSave: () => void;
+};
+
+type SettingsFormValues = Omit<Secret, "addedDate"> & {
   icon: FileList | null;
 };
 
@@ -18,17 +20,31 @@ const defaultValues: SettingsFormValues = {
   icon: null,
 };
 
-export const SettingsForm = () => {
+export const SettingsForm = ({ onSave }: SettingsFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SettingsFormValues>({ defaultValues });
 
-  const onSubmit = (values: SettingsFormValues) => {
-    const extendedValues: Secret = { ...values, secret: values.secret.replace(/\s/g, ""), addedDate: Date.now() };
+  const onSubmit = async (values: SettingsFormValues) => {
+    const file = values.icon?.[0];
+    let icon = null;
 
-    console.log(extendedValues);
+    if (file) {
+      icon = await readFile(file, "url");
+    }
+
+    const extendedValues: Secret = {
+      name: values.name,
+      secret: values.secret.replace(/\s/g, ""),
+      addedDate: Date.now(),
+      icon,
+    };
+
+    await addSecretCode(extendedValues);
+
+    onSave();
   };
 
   return (

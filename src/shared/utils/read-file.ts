@@ -1,4 +1,6 @@
-export const readFile = (file: File): Promise<string> => {
+type ResultType = "text" | "url";
+
+export const readFile = (file: File, resultType: ResultType = "text"): Promise<string> => {
   return new Promise((resolve) => {
     const reader = new FileReader();
 
@@ -14,6 +16,15 @@ export const readFile = (file: File): Promise<string> => {
       resolve("");
     };
 
-    reader.readAsText(file);
+    switch (resultType) {
+      case "text":
+        return reader.readAsText(file);
+
+      case "url":
+        return reader.readAsDataURL(file);
+
+      default:
+        return null;
+    }
   });
 };
