@@ -1,0 +1,39 @@
+@import "../../../shared/colors"
+
+.delete-form
+  user-select: none
+  width: 100%
+  box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
+  backdrop-filter: blur(10px)
+  border-radius: 1rem
+  padding: 1rem
+
+  .title
+    text-align: center
+    font-size: 3rem
+    margin: 3rem 0 5rem
+
+    & > span
+      color: $red
+
+  .buttons
+    display: flex
+    align-items: center
+    justify-content: center
+    gap: 2rem
+    margin: 5rem auto
+
+    .button
+      min-width: 14rem
+
+      &:first-child
+        box-shadow: 0 0 0 0.2rem rgba($gray, 0.3)
+
+        &:hover
+          box-shadow: 0 0 0 0.4rem $gray
+
+      &:last-child
+        box-shadow: 0 0 0 0.2rem rgba($red, 0.3)
+
+        &:hover
+          box-shadow: 0 0 0 0.4rem $red
