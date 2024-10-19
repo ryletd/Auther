@@ -1,15 +1,12 @@
 import { useEffect } from "react";
-import { useStore } from "@/store/auther-config";
+import { useAuthConfig } from "@/store/auther-config";
 
 import { TwoFactorAuthList } from "@/widgets";
 import { Header } from "@/entities";
 import { getAutherConfig } from "@/shared";
 
 export const Options = () => {
-  const { setError, setAutherConfig } = useStore((state) => ({
-    setError: state.setError,
-    setAutherConfig: state.setAutherConfig,
-  }));
+  const { setError, setAutherConfig } = useAuthConfig();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +23,7 @@ export const Options = () => {
     };
 
     fetchData();
-  }, [setAutherConfig]);
+  }, [setAutherConfig, setError]);
 
   return (
     <main>

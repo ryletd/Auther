@@ -9,9 +9,15 @@ interface AutherConfigState {
   setError: (newAutherConfig: string) => void;
 }
 
-export const useStore = create<AutherConfigState>((set) => ({
+const useStore = create<AutherConfigState>((set) => ({
   autherConfig: {},
   error: null,
   setAutherConfig: (newAutherConfig: AutherConfig) => set({ autherConfig: newAutherConfig }),
   setError: (error: string) => set({ error }),
 }));
+
+export const useAuthConfig = () => {
+  const setError = useStore((state) => state.setError);
+  const setAutherConfig = useStore((state) => state.setAutherConfig);
+  return { setError, setAutherConfig };
+};
