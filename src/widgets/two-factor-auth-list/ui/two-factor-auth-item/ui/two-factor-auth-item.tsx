@@ -1,5 +1,3 @@
-import { enqueueSnackbar } from "notistack";
-
 import { Progressbar } from "@/shared/progressbar";
 
 import "./two-factor-auth-item.sass";
@@ -11,14 +9,7 @@ type TwoFactorAuthItemProps = {
 };
 
 export const TwoFactorAuthItem = ({ icon, name, code }: TwoFactorAuthItemProps) => {
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(code);
-      enqueueSnackbar("Код скопирован");
-    } catch (error) {
-      enqueueSnackbar("Не удалось скопировать код");
-    }
-  };
+  const handleCopy = () => navigator.clipboard.writeText(code);
 
   return (
     <button className="wrapper" onClick={handleCopy}>
