@@ -7,9 +7,7 @@ interface AutherConfigState {
   setAutherConfig: (newAutherConfig: AutherConfig) => void;
 }
 
-const useStore = create<AutherConfigState>((set) => ({
+export const useStore = create<AutherConfigState>((set) => ({
   autherConfig: {},
   setAutherConfig: (newAutherConfig: AutherConfig) => set({ autherConfig: newAutherConfig }),
 }));
-
-export default useStore;

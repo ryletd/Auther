@@ -1,12 +1,11 @@
 import { useEffect } from "react";
-import useStore from "@/store/auther-config";
+import { useStore } from "@/store/auther-config";
 
 import { TwoFactorAuthList } from "@/widgets";
 import { Header } from "@/entities";
 import { getAutherConfig } from "@/shared";
 
 export const Options = () => {
-  const autherConfig = useStore((state) => state.autherConfig);
   const setAutherConfig = useStore((state) => state.setAutherConfig);
 
   useEffect(() => {
