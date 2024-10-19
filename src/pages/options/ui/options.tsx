@@ -6,7 +6,7 @@ export const Options = () => {
     <main>
       <Header />
       <div className="container">
-        <TwoFactorAuthList />
+        <TwoFactorAuthList editable />
       </div>
     </main>
   );

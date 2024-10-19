@@ -9,7 +9,11 @@ import type { Secret } from "@/shared";
 
 import "./two-factor-auth-list.sass";
 
-export const TwoFactorAuthList = () => {
+type TwoFactorAuthListProps = {
+  editable?: boolean;
+};
+
+export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) => {
   const [secrets, setSecrets] = useState<Secret[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const [activeEditSecret, setActiveEditSecret] = useState<Secret | null>(null);
@@ -56,8 +60,8 @@ export const TwoFactorAuthList = () => {
           key={secret.secret}
           secret={secret}
           progress={progress}
-          onCancel={setActiveEditSecret}
-          onDelete={setActiveDeleteSecret}
+          onCancel={editable ? setActiveEditSecret : undefined}
+          onDelete={editable ? setActiveDeleteSecret : undefined}
         />
       ))}
       <Modal open={!!activeDeleteSecret} width="600px" onClose={() => setActiveDeleteSecret(null)}>
