@@ -1,29 +1,23 @@
 import { useEffect } from "react";
-import { useAuthConfig } from "@/store/auther-config";
+import { useAuthConfig } from "@/shared/store/auther-config";
 
 import { TwoFactorAuthList } from "@/widgets";
 import { Header } from "@/entities";
 import { getAutherConfig } from "@/shared";
 
 export const Options = () => {
-  const { setError, setAutherConfig } = useAuthConfig();
+  const { setAutherConfig } = useAuthConfig();
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         const result = await getAutherConfig();
         setAutherConfig(result);
       } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError("An error occurred while retrieving the configuration");
-        }
+        console.error(error);
       }
-    };
-
-    fetchData();
-  }, [setAutherConfig, setError]);
+    })();
+  }, [setAutherConfig]);
 
   return (
     <main>
