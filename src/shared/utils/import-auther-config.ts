@@ -1,11 +1,11 @@
-import { getAutherConfig, saveAutherConfig } from "@/shared";
+import { getAutherConfig, setAutherConfig } from "@/shared";
 
 import type { AutherConfig } from "@/shared";
 
 export const importAutherConfig = async (importedConfig: AutherConfig): Promise<void> => {
   const config = await getAutherConfig();
 
-  await saveAutherConfig({
+  await setAutherConfig({
     lastExportTime:
       importedConfig.lastExportTime > config.lastExportTime ? importedConfig.lastExportTime : config.lastExportTime,
     exportedSecrets: importedConfig.exportedSecrets.concat(

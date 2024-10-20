@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
 import { DeleteForm } from "@/entities";
-import { Modal, getAutherConfig, deleteSecret } from "@/shared";
+import { Modal, deleteSecretCode, useAutherConfigStore, getAutherConfig, setAutherConfig } from "@/shared";
 
 import type { Secret } from "@/shared";
 
@@ -14,13 +14,13 @@ type TwoFactorAuthListProps = {
 };
 
 export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) => {
-  const [secrets, setSecrets] = useState<Secret[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const [activeEditSecret, setActiveEditSecret] = useState<Secret | null>(null);
   const [activeDeleteSecret, setActiveDeleteSecret] = useState<Secret | null>(null);
+  const { autherConfig } = useAutherConfigStore();
 
   useEffect(() => {
-    getAutherConfig().then(({ secrets }) => setSecrets(secrets));
+    getAutherConfig().then(setAutherConfig);
   }, []);
 
   useEffect(() => {
@@ -45,9 +45,9 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
     setActiveDeleteSecret(null);
   };
 
-  const onDelete = () => {
+  const onDelete = async () => {
     if (activeDeleteSecret) {
-      deleteSecret(activeDeleteSecret.secret);
+      await deleteSecretCode(activeDeleteSecret.secret);
     }
 
     setActiveDeleteSecret(null);
@@ -55,7 +55,7 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
 
   return (
     <div className="list-wrapper">
-      {secrets.map((secret) => (
+      {autherConfig?.secrets.map((secret) => (
         <TwoFactorAuthItem
           key={secret.secret}
           secret={secret}

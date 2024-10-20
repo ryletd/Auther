@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import { Modal, Button, exportAutherConfig, readFile, importAutherConfig, getAutherConfig } from "@/shared";
+import { Modal, Button, exportAutherConfig, readFile, importAutherConfig } from "@/shared";
 import { SettingsForm } from "@/entities";
 
 import Favicon from "@/shared/assets/favicon.png";

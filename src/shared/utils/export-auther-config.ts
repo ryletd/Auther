@@ -1,4 +1,4 @@
-import { getAutherConfig, saveAutherConfig } from "@/shared";
+import { getAutherConfig, setAutherConfig } from "@/shared";
 
 export const exportAutherConfig = async (): Promise<void> => {
   const config = await getAutherConfig();
@@ -17,5 +17,5 @@ export const exportAutherConfig = async (): Promise<void> => {
 
   window.URL.revokeObjectURL(a.href);
 
-  await saveAutherConfig(extendedConfig);
+  await setAutherConfig(extendedConfig);
 };
