@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { DEFAULT_AUTHER_CONFIG } from "../config/auther-config";
+import { DEFAULT_AUTHER_CONFIG } from "../constants/auther-config";
 
 import type { AutherConfig } from "@/shared";
 
