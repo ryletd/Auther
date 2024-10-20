@@ -14,8 +14,4 @@ const useStore = create<AutherConfigState>((set) => ({
   setAutherConfig: (autherConfig: AutherConfig) => set({ autherConfig }),
 }));
 
-export const useAuthConfig = () => {
-  const autherConfig = useStore((state) => state.autherConfig);
-  const setAutherConfig = useStore((state) => state.setAutherConfig);
-  return { autherConfig, setAutherConfig };
-};
+export const useAuthConfig = () => useStore();

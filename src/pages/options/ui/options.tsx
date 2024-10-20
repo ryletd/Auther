@@ -9,7 +9,7 @@ export const Options = () => {
   const { setAutherConfig } = useAuthConfig();
 
   useEffect(() => {
-    getAutherConfig().then((config) => setAutherConfig(config));
+    getAutherConfig().then(setAutherConfig);
   }, [setAutherConfig]);
 
   return (
