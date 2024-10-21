@@ -8,7 +8,7 @@ type AutherConfigState = {
   autherConfig: AutherConfig;
 };
 
-export const useAutherConfigStore = create<AutherConfigState>((set) => ({
+export const useAutherConfigStore = create<AutherConfigState>(() => ({
   autherConfig: DEFAULT_AUTHER_CONFIG,
 }));
 

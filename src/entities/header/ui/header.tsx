@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 
-import { Modal, Button, exportAutherConfig, readFile, importAutherConfig } from "@/shared";
+import { Modal, Button, exportAutherConfig, readFile, importAutherConfig, useAutherConfigStore } from "@/shared";
 import { SettingsForm } from "@/entities";
 
 import Favicon from "@/shared/assets/favicon.png";
@@ -16,7 +16,12 @@ import type { ChangeEvent } from "react";
 export const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   const importInputRef = useRef<HTMLInputElement | null>(null);
-  const newSecretCodes = 12;
+  const { autherConfig } = useAutherConfigStore();
+
+  const newSecretCodes = useMemo(
+    () => +autherConfig?.secrets.filter(({ secret }) => !autherConfig.exportedSecrets.includes(secret)).length,
+    [autherConfig]
+  );
 
   const onImportFileUpload = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const file = target.files?.[0];
@@ -41,7 +46,7 @@ export const Header = () => {
           </Button>
           <Button className="header-button" onClick={() => setOpenModal((isOpened) => !isOpened)}>
             <img src={SettingsIcon} alt="settings" />
-            {newSecretCodes && (
+            {!!newSecretCodes && (
               <div className="header-button-badge">{newSecretCodes > 99 ? "99+" : newSecretCodes}</div>
             )}
           </Button>
