@@ -1,5 +1,5 @@
 type SvgProps = {
-  className: string | undefined;
+  className?: string;
 };
 
 export const CloseIcon = ({ className }: SvgProps) => (
