@@ -40,15 +40,23 @@
     
   .file
     display: flex
-    gap: 0.4rem
+    gap: 0.8rem
     align-items: stretch
     margin-top: 1rem
    
   .close-btn
     background: transparent
 
+    &:hover 
+     .btn-icon
+      path
+        color: $red
+
     .btn-icon
      font-size: 1.4rem
 
+     path
+      color: rgba($red, 0.5)
+      
   .label
     font-size: 2rem
