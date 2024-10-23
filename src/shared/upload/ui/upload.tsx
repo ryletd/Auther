@@ -9,7 +9,7 @@ import "./upload.sass";
 
 import type { UseFormRegister, FieldErrors, RegisterOptions, FieldValues, Path } from "react-hook-form";
 
-type InputProps<T extends FieldValues> = {
+type UploadProps<T extends FieldValues> = {
   label?: string;
   name: Path<T>;
   register: UseFormRegister<T>;
@@ -17,11 +17,12 @@ type InputProps<T extends FieldValues> = {
   registerOptions?: RegisterOptions<T>;
 };
 
-export const Upload = <T extends FieldValues>({ label, name, register, errors, registerOptions }: InputProps<T>) => {
+export const Upload = <T extends FieldValues>({ label, name, register, errors, registerOptions }: UploadProps<T>) => {
   const [files, setFiles] = useState<File[]>([]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: setFiles,
+    accept: { Picture: ["image/*"] },
   });
 
   const handleDeleteFile = (fileToDelete: File) => {
