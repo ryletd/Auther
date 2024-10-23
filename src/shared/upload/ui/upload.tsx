@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import classNames from "classnames";
 
-import { CloseIcon } from "@/shared/assets/svg/close";
+import { CloseIcon } from "@/shared";
 import ArrowUp from "@/shared/assets/arrow-up.png";
 
 import "./upload.sass";
@@ -21,9 +21,7 @@ export const Upload = <T extends FieldValues>({ label, name, register, errors, r
   const [files, setFiles] = useState<File[]>([]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      setFiles(acceptedFiles);
-    },
+    onDrop: setFiles,
   });
 
   const handleDeleteFile = (fileToDelete: File) => {

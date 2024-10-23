@@ -1,6 +1,7 @@
 export * from "./utils";
 export * from "./store";
 export * from "./constants";
+export * from "./assets";
 export type * from "./types";
 
 export { Modal } from "./modal";
