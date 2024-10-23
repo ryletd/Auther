@@ -5,23 +5,58 @@
   margin: 0 auto
   margin-top: 2rem
 
+  .upload
+   height: 9.8rem
+   cursor: pointer
+   display: flex
+   justify-content: center
+   align-items: center
+   margin-top: 1rem
+   padding: 1rem
+   border: 0.2rem dashed rgba($green, 0.3)
+   border-radius: 0.5rem
+
+   &.error
+    border-color: $red
+
+   &:hover
+    border-color: $green
+
+   &:active
+    cursor: grabbing
+
+  .text-upload
+   font-size: 2rem
+
+  .upload-loading
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    gap: 0.4rem
+
+    img
+     height: 5rem
+    
+  .file
+    display: flex
+    gap: 0.8rem
+    align-items: stretch
+    margin-top: 1rem
+   
+  .close-btn
+    background: transparent
+
+    &:hover 
+     .btn-icon
+      path
+        color: $red
+
+    .btn-icon
+     font-size: 1.4rem
+
+     path
+      color: rgba($red, 0.5)
+      
   .label
     font-size: 2rem
-
-  .upload
-    display: block
-    margin-top: 1rem
-    padding: 1rem
-    width: 100%
-    background: transparent
-    border-radius: 0.5rem
-    height: 3.5rem
-    box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
-    transition: 0.2s
-
-    &.error
-      box-shadow: 0 0 0 0.4rem $green
-
-    &:hover,
-    &:focus
-      border-color: $red
