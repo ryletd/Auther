@@ -34,7 +34,7 @@ export const Upload = <T extends FieldValues>({ label, name, register, errors, r
   };
 
   return (
-    <div className="upload-wrapper">
+    <div className={classNames("upload-wrapper", { empty: !files.length })}>
       {label && <label className="label">{label}</label>}
       <div className={classNames("upload", { error: errors[name] })} {...getRootProps()}>
         <input maxLength={1} accept="image/*" {...register(name, registerOptions)} {...getInputProps()} />
@@ -50,8 +50,8 @@ export const Upload = <T extends FieldValues>({ label, name, register, errors, r
       {files.map((file) => (
         <div key={file.name} className="file">
           <p className="file-name">{file.name}</p>
-          <button onClick={() => handleDeleteFile(file)} className="close-btn">
-            <CloseIcon className="btn-icon" />
+          <button onClick={() => handleDeleteFile(file)} className="close-button">
+            <CloseIcon className="button-icon" />
           </button>
         </div>
       ))}

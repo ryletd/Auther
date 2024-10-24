@@ -6,6 +6,7 @@
   margin-top: 2rem
 
   .upload
+    height: 13rem
     cursor: pointer
     display: flex
     justify-content: center
@@ -38,24 +39,30 @@
       height: 5rem
 
   .file
-    display: flex
+    max-width: 100%
+    display: inline-flex
+    align-items: center
+    padding: 0.5rem 1rem
+    margin-top: 1.5rem
     gap: 0.8rem
-    align-items: stretch
-    margin-top: 1rem
+    border: 2px solid $gray
+    border-radius: 1rem
 
-  .close-btn
+    &-name
+      overflow: hidden
+      text-overflow: ellipsis
+      text-wrap: nowrap
+      line-height: 2rem
+
+  .close-button
     background: transparent
+    height: 1.5rem
 
-    &:hover
-    .btn-icon
+    .button-icon
+      height: 1.5rem
+
       path
         color: $red
-
-    .btn-icon
-      font-size: 1.4rem
-
-    path
-      color: rgba($red, 0.5)
 
   .label
     font-size: 2rem
