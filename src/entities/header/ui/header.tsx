@@ -1,7 +1,7 @@
 import { useRef, useState, useMemo } from "react";
 
 import { Modal, Button, exportAutherConfig, readFile, importAutherConfig, useAutherConfigStore } from "@/shared";
-import { SettingsForm } from "@/entities";
+import { AddForm } from "@/entities";
 
 import Favicon from "@/shared/assets/favicon.png";
 import PlusIcon from "@/shared/assets/plus.png";
@@ -60,7 +60,7 @@ export const Header = () => {
         </div>
       </div>
       <Modal open={openModal} width="600px" onClose={() => setOpenModal((isOpened) => !isOpened)}>
-        <SettingsForm onSave={() => setOpenModal((isOpened) => !isOpened)} />
+        <AddForm onClose={() => setOpenModal((isOpened) => !isOpened)} />
       </Modal>
     </header>
   );

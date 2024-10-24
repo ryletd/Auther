@@ -2,32 +2,34 @@ import { useForm } from "react-hook-form";
 
 import { Input, Upload, Button, readFile, addSecretCode } from "@/shared";
 
-import "./settings-form.sass";
+import "./edit-form.sass";
 
 import type { Secret } from "@/shared";
 
-type SettingsFormProps = {
-  onSave: () => void;
+type EditFormProps = {
+  name: string;
+  onCancel: () => void;
+  onEdit: () => void;
 };
 
-type SettingsFormValues = Omit<Secret, "addedDate"> & {
+type EditFormValues = Omit<Secret, "addedDate"> & {
   icon: FileList | null;
 };
 
-const defaultValues: SettingsFormValues = {
+const defaultValues: EditFormValues = {
   name: "",
   secret: "",
   icon: null,
 };
 
-export const SettingsForm = ({ onSave }: SettingsFormProps) => {
+export const EditForm = ({ name, onCancel }: EditFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SettingsFormValues>({ defaultValues });
+  } = useForm<EditFormValues>({ defaultValues });
 
-  const onSubmit = async (values: SettingsFormValues) => {
+  const onSubmit = async (values: EditFormValues) => {
     const file = values.icon?.[0];
     let icon = null;
 
@@ -44,30 +46,35 @@ export const SettingsForm = ({ onSave }: SettingsFormProps) => {
 
     await addSecretCode(extendedValues);
 
-    onSave();
+    onCancel();
   };
 
   return (
-    <form className="settings-form" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="title">Add new 2fa code</h2>
-      <Input<SettingsFormValues>
+    <form className="edit-form" onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="title">
+        Edit <span>{name}</span> code
+      </h2>
+      <Input<EditFormValues>
         name="name"
         label="Name"
         register={register}
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Input<SettingsFormValues>
+      <Input<EditFormValues>
         name="secret"
         label="Secret code"
         register={register}
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Upload<SettingsFormValues> name="icon" label="Icon" register={register} errors={errors} />
-      <Button type="submit" className="save-button">
-        Save
-      </Button>
+      <Upload<EditFormValues> name="icon" label="Icon" register={register} errors={errors} />
+      <div className="buttons">
+        <Button className="cancel-button">Cancel</Button>
+        <Button type="submit" className="save-button">
+          Save
+        </Button>
+      </div>
     </form>
   );
 };

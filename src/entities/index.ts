@@ -1,3 +1,4 @@
 export { Header } from "./header";
-export { SettingsForm } from "./settings-form";
+export { AddForm } from "./add-form";
 export { DeleteForm } from "./delete-form";
+export { EditForm } from "./edit-form";
