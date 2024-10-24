@@ -1,0 +1,27 @@
+@import "../../colors"
+
+.input-wrapper
+  max-width: 40rem
+  margin: 0 auto
+  margin-top: 2rem
+
+  .label
+    font-size: 2rem
+
+  .input
+    display: block
+    margin-top: 1rem
+    padding: 1rem
+    width: 100%
+    background: transparent
+    border-radius: 0.5rem
+    height: 3.5rem
+    box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
+    transition: 0.2s
+
+    &.error
+      border-color: $red
+
+    &:hover,
+    &:focus
+      box-shadow: 0 0 0 0.4rem $green

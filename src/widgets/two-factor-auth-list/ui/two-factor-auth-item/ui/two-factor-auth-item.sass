@@ -1,0 +1,87 @@
+@import "../../../../../shared/colors"
+
+.wrapper
+  cursor: pointer
+  display: flex
+  align-items: center
+  padding: 1rem
+  box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
+  border-radius: 1rem
+  background: $black-2
+  transition: 0.2s
+
+  &:hover
+    box-shadow: 0 0 0 0.4rem $green
+
+  &.copied
+    box-shadow: 0 0 0 0.4rem $green
+    background: rgba($green, 0.2)
+
+  .icon
+    user-select: none
+    pointer-events: none
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: 50%
+    width: 3rem
+    height: 3rem
+    border: 0.3rem solid $green
+    object-fit: cover
+
+  .inner-wrapper
+    display: flex
+    align-items: start
+    margin-left: 1rem
+    flex-direction: column
+    gap: 0.5rem
+    overflow: hidden
+
+  .actions
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 0 1rem 0 auto
+    gap: 1rem
+
+    & img
+      width: 2rem
+      height: 2rem
+
+  .name, .code
+    max-width: 100%
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  .name
+    user-select: none
+    color: #6b6f75
+    font-size: 1.4rem
+    line-height: 1.6rem
+
+  .code
+    font-weight: 600
+    font-size: 1.8rem
+
+    &.warning
+      color: $red
+
+  .copy-button
+    user-select: none
+    opacity: 0
+    background: transparent
+    width: 2rem
+    height: 2rem
+    padding: 0
+    transition: 0.2s
+
+    &.copied
+      opacity: 1
+
+  .edit-button,
+  .delete-button
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 0.5rem

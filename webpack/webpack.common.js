@@ -40,6 +40,14 @@ module.exports = {
           fullySpecified: false,
         },
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
+      },
     ],
   },
   resolve: {
@@ -62,5 +70,6 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: ".", to: "../", context: "public" }],
     }),
+    new webpack.ProvidePlugin({ process: "process/browser" }),
   ],
 };

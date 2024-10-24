@@ -14,5 +14,7 @@
     "default_popup": "index.html"
   },
 
-  "options_page": "options.html"
+  "options_page": "options.html",
+
+  "permissions": ["storage"]
 }
