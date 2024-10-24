@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
 import { EditForm, DeleteForm } from "@/entities";
-import { Modal, deleteSecretCode, useAutherConfigStore, getAutherConfig, setAutherConfig } from "@/shared";
+import { Modal, useAutherConfigStore, getAutherConfig, setAutherConfig } from "@/shared";
 
 import type { Secret } from "@/shared";
 
@@ -37,30 +37,6 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
     return () => clearInterval(id);
   }, []);
 
-  const onEditCancel = () => {
-    setActiveEditSecret(null);
-  };
-
-  const onEdit = async () => {
-    if (activeDeleteSecret) {
-      await deleteSecretCode(activeDeleteSecret.secret);
-    }
-
-    setActiveDeleteSecret(null);
-  };
-
-  const onDeleteCancel = () => {
-    setActiveDeleteSecret(null);
-  };
-
-  const onDelete = async () => {
-    if (activeDeleteSecret) {
-      await deleteSecretCode(activeDeleteSecret.secret);
-    }
-
-    setActiveDeleteSecret(null);
-  };
-
   return (
     <div className="list-wrapper">
       {autherConfig?.secrets.map((secret) => (
@@ -72,11 +48,11 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
           onDelete={editable ? setActiveDeleteSecret : undefined}
         />
       ))}
-      <Modal open={!!activeDeleteSecret} width="600px" onClose={onDeleteCancel}>
-        <DeleteForm name={activeDeleteSecret?.name ?? ""} onCancel={onDeleteCancel} onDelete={onDelete} />
+      <Modal open={!!activeEditSecret} width="600px" onClose={() => setActiveEditSecret(null)}>
+        <EditForm secret={activeEditSecret!} onClose={() => setActiveEditSecret(null)} />
       </Modal>
-      <Modal open={!!activeEditSecret} width="600px" onClose={onEditCancel}>
-        <EditForm name={activeEditSecret?.name ?? ""} onCancel={onEditCancel} onEdit={onEdit} />
+      <Modal open={!!activeDeleteSecret} width="600px" onClose={() => setActiveDeleteSecret(null)}>
+        <DeleteForm secret={activeDeleteSecret!} onClose={() => setActiveDeleteSecret(null)} />
       </Modal>
     </div>
   );
