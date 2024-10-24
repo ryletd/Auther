@@ -1,17 +1,19 @@
-import { ChangeEvent, useRef } from "react";
+import { useRef } from "react";
 
 import { Button, exportAutherConfig, importAutherConfig, readFile } from "@/shared";
 
 import ImportIcon from "@/shared/assets/import.png";
 import ExportIcon from "@/shared/assets/export.png";
 
-import "./exchange-form.sass";
+import "./settings-form.sass";
 
-type ExchangeFormType = {
-  onCloseModal: () => void;
+import type { ChangeEvent } from "react";
+
+type SettingsFormType = {
+  onClose: () => void;
 };
 
-export const ExchangeForm = ({ onCloseModal }: ExchangeFormType) => {
+export const SettingsForm = ({ onClose }: SettingsFormType) => {
   const importInputRef = useRef<HTMLInputElement | null>(null);
 
   const onImportFileUpload = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -26,16 +28,16 @@ export const ExchangeForm = ({ onCloseModal }: ExchangeFormType) => {
 
   return (
     <div className="form-wrapper">
-      <div className="form-btn">
-        <Button className="btn" onClick={() => importInputRef.current?.click()}>
+      <div className="form-button">
+        <Button onClick={() => importInputRef.current?.click()}>
           <img src={ImportIcon} alt="import" />
           <input ref={importInputRef} type="file" accept="application/JSON" hidden onChange={onImportFileUpload} />
         </Button>
-        <Button className="btn" onClick={exportAutherConfig}>
+        <Button onClick={exportAutherConfig}>
           <img src={ExportIcon} alt="export" />
         </Button>
       </div>
-      <Button onClick={onCloseModal} className="btn-cancel">
+      <Button onClick={onClose} className="button-cancel">
         Cancel
       </Button>
       <a className="link" href="https://github.com/ryletd/Auther">
