@@ -48,7 +48,7 @@ export const editSecretCode = async (secret: Secret): Promise<void> => {
   const { autherConfig } = useAutherConfigStore.getState();
   const secretIndex = autherConfig.secrets.findIndex(({ id }) => id === secret.id);
 
-  if (!secretIndex) {
+  if (secretIndex < 0) {
     return;
   }
 
