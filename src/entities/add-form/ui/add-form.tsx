@@ -58,7 +58,9 @@ export const AddForm = ({ onClose }: AddFormProps) => {
       />
       <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
       <div className="buttons">
-        <Button className="cancel-button">Cancel</Button>
+        <Button className="cancel-button" onClick={onClose}>
+          Cancel
+        </Button>
         <Button type="submit" className="save-button">
           Save
         </Button>
