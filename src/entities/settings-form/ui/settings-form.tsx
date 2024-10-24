@@ -4,6 +4,7 @@ import { Button, exportAutherConfig, importAutherConfig, readFile } from "@/shar
 
 import ImportIcon from "@/shared/assets/import.png";
 import ExportIcon from "@/shared/assets/export.png";
+import OpenLinkIcon from "@/shared/assets/open-link.png";
 
 import "./settings-form.sass";
 
@@ -27,21 +28,25 @@ export const SettingsForm = ({ onClose }: SettingsFormType) => {
   };
 
   return (
-    <div className="form-wrapper">
-      <div className="form-button">
-        <Button onClick={() => importInputRef.current?.click()}>
-          <img src={ImportIcon} alt="import" />
+    <div className="settings-form">
+      <h2 className="title">Extension settings</h2>
+      <div className="settings-buttons">
+        <Button className="settings-button" onClick={exportAutherConfig}>
+          <p className="settings-button-text">Export</p>
+          <img className="settings-button-picture" src={ExportIcon} alt="export" />
+        </Button>
+        <Button className="settings-button" onClick={() => importInputRef.current?.click()}>
+          <p className="settings-button-text">Import</p>
+          <img className="settings-button-picture" src={ImportIcon} alt="import" />
           <input ref={importInputRef} type="file" accept="application/JSON" hidden onChange={onImportFileUpload} />
         </Button>
-        <Button onClick={exportAutherConfig}>
-          <img src={ExportIcon} alt="export" />
-        </Button>
       </div>
-      <Button onClick={onClose} className="button-cancel">
+      <Button onClick={onClose} className="cancel-button">
         Cancel
       </Button>
-      <a className="link" href="https://github.com/ryletd/Auther">
-        Github
+      <a className="github-link" href="https://github.com/ryletd/Auther" target="_blank">
+        <img src={OpenLinkIcon} alt="open-link" />
+        Github 💖
       </a>
     </div>
   );

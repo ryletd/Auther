@@ -1,33 +1,65 @@
 @import "../../../shared/colors"
-    
-.form-wrapper
- display: flex 
- align-items: center
- justify-content: center
- flex-direction: column
- gap: 2rem
- width: 39%
- box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
- backdrop-filter: blur(10px)
- border-radius: 1rem
- padding: 1rem
 
-.form-button
- width: 100%
- display: flex
- justify-content: space-between
+.settings-form
+  user-select: none
+  width: 100%
+  box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
+  backdrop-filter: blur(10px)
+  border-radius: 1rem
+  padding: 1rem
 
- button
-  width: 10rem
-  height: 12rem
-  position: relative
-  font-size: 1.6rem
-  padding: 0.5rem
+  .title
+    text-align: center
+    font-size: 3rem
+    margin: 3rem 0 5rem
 
-  img
-    width: 9rem
-    height: 11rem
-    
-.link
- &:hover
-  color:#32ff7e
+  .settings-buttons
+    width: 100%
+    display: flex
+    justify-content: center
+    gap: 2rem
+
+    .settings-button
+      width: 20rem
+      height: 25rem
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      gap: 3rem
+      border-radius: 1rem
+
+      &:hover
+        background: rgba($green, 0.2)
+
+      &-text
+        font-size: 2.5rem
+        color: $green
+
+      &-picture
+        width: 80%
+
+  .cancel-button
+    min-width: 14rem
+    box-shadow: 0 0 0 0.2rem rgba($gray, 0.3)
+    margin: 4rem auto 0
+
+    &:hover
+      box-shadow: 0 0 0 0.4rem $gray
+
+  .github-link
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 0.5rem
+    margin: 3rem 0 1rem
+    transition: 0.2s
+    color: $gray
+
+    &:hover
+      color: $green
+
+    & > img
+      user-select: none
+      pointer-events: none
+      height: 2rem
