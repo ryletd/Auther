@@ -14,9 +14,9 @@ export const Tabs = ({ buttons, onChange, value }: TabsType) => {
       <div className="wrapper-buttons">
         {buttons.map((button, index) => (
           <button
+            key={button + index}
             type="button"
             onClick={() => onChange(index)}
-            key={button + index}
             className={classNames("tabs-button", { active: value === index })}
           >
             {button}

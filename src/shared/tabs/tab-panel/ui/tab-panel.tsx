@@ -2,8 +2,10 @@ import classNames from "classnames";
 
 import "./tab-panel.sass";
 
+import type { ReactNode } from "react";
+
 type TabPanelType = {
-  children: React.ReactNode;
+  children: ReactNode;
   value: number;
   index: number;
 };

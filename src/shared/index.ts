@@ -8,5 +8,6 @@ export { Modal } from "./modal";
 export { Input } from "./input";
 export { Upload } from "./upload";
 export { Button } from "./button";
-export { Tabs } from "./tabs/ui/tabs";
 export { Progressbar } from "./progressbar";
+export { Tabs } from "./tabs";
+export { TabPanel } from "./tabs";

@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, readFile, addSecretCode, Tabs } from "@/shared";
+import { Input, Upload, Button, addSecretCode, Tabs, TabPanel } from "@/shared";
 
 import "./add-form.sass";
 
 import type { Secret } from "@/shared";
-import { TabPanel } from "@/shared/tabs/tab-panel";
 
 type AddFormProps = {
   onClose: () => void;
@@ -21,11 +20,7 @@ const defaultValues: AddFormValues = {
 };
 
 export const AddForm = ({ onClose }: AddFormProps) => {
-  const [valueTabs, setValueTabs] = useState(0);
-
-  const handleTabChange = (index: number) => {
-    setValueTabs(index);
-  };
+  const [tab, setTab] = useState<number>(0);
 
   const {
     register,
@@ -64,11 +59,11 @@ export const AddForm = ({ onClose }: AddFormProps) => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Tabs buttons={["Upload", "Link"]} value={valueTabs} onChange={handleTabChange} />
-      <TabPanel value={valueTabs} index={0}>
+      <Tabs buttons={["Upload", "Link"]} value={tab} onChange={() => setTab} />
+      <TabPanel value={tab} index={0}>
         <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
       </TabPanel>
-      <TabPanel value={valueTabs} index={1}>
+      <TabPanel value={tab} index={1}>
         <Input
           name="icon"
           label="Icon"
