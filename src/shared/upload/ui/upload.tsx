@@ -24,7 +24,7 @@ export const Upload = <T extends FieldValues>({ label, name, setValue, watch }: 
         readFile(file, "url").then((url) => setValue(name, url as PathValue<T, Path<T>>));
       }
     },
-    accept: { Picture: ["image/*"] },
+    accept: { "image/*": [] },
   });
 
   return (
