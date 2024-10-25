@@ -22,8 +22,6 @@ const defaultValues: AddFormValues = {
 export const AddForm = ({ onClose }: AddFormProps) => {
   const [tab, setTab] = useState<number>(0);
 
-  console.log(tab);
-
   const {
     register,
     handleSubmit,
