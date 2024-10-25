@@ -22,6 +22,17 @@
   &:active
     cursor: grabbing
 
+  .icon-block
+    display: flex
+    gap: 0.6rem
+
+    .icon
+      width: 10rem
+      height: 10rem
+      border: 0.3rem solid $green 
+      border-radius: 0.5rem
+      object-fit: cover
+
   .text-upload
     font-size: 2rem
 
@@ -34,22 +45,6 @@
 
     img
       height: 5rem
-
-  .file
-    max-width: 100%
-    display: inline-flex
-    align-items: center
-    padding: 0.5rem 1rem
-    margin-top: 1.5rem
-    gap: 0.8rem
-    border: 2px solid $gray
-    border-radius: 1rem
-
-    &-name
-      overflow: hidden
-      text-overflow: ellipsis
-      text-wrap: nowrap
-      line-height: 2rem
 
   .close-button
     background: transparent
