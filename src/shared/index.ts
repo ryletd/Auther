@@ -9,3 +9,4 @@ export { Input } from "./input";
 export { Upload } from "./upload";
 export { Button } from "./button";
 export { Progressbar } from "./progressbar";
+export { Tabs, TabPanel } from "./tabs";

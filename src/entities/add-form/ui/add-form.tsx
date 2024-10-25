@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, readFile, addSecretCode } from "@/shared";
+import { Input, Upload, Button, addSecretCode, Tabs, TabPanel } from "@/shared";
 
 import "./add-form.sass";
 
@@ -19,6 +20,8 @@ const defaultValues: AddFormValues = {
 };
 
 export const AddForm = ({ onClose }: AddFormProps) => {
+  const [tab, setTab] = useState<number>(0);
+
   const {
     register,
     handleSubmit,
@@ -56,7 +59,19 @@ export const AddForm = ({ onClose }: AddFormProps) => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
+      <Tabs buttons={["Upload", "Link"]} value={tab} onChange={setTab} />
+      <TabPanel value={tab} index={0}>
+        <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
+      </TabPanel>
+      <TabPanel value={tab} index={1}>
+        <Input
+          name="icon"
+          label="Icon"
+          register={register}
+          errors={errors}
+          registerOptions={{ required: true, min: 1 }}
+        />
+      </TabPanel>
       <div className="buttons">
         <Button className="cancel-button" onClick={onClose}>
           Cancel
