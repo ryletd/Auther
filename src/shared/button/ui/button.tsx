@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 import classNames from "classnames";
 
 import "./button.sass";
@@ -12,8 +14,10 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-export const Button = ({ children, onClick, disabled = false, className, type = "button" }: ButtonProps) => (
-  <button type={type} onClick={onClick} disabled={disabled} className={classNames("button", className)}>
-    {children}
-  </button>
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ children, onClick, disabled = false, className, type = "button" }, ref) => (
+    <button type={type} onClick={onClick} disabled={disabled} className={classNames("button", className)} ref={ref}>
+      {children}
+    </button>
+  )
 );

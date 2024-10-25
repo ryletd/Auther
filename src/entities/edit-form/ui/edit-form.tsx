@@ -1,58 +1,46 @@
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, readFile, addSecretCode } from "@/shared";
+import { Input, Upload, Button, editSecretCode, useAutherConfigStore } from "@/shared";
 
 import "./edit-form.sass";
 
 import type { Secret } from "@/shared";
 
 type EditFormProps = {
-  name: string;
-  onCancel: () => void;
-  onEdit: () => void;
+  secret: Secret;
+  onClose: () => void;
 };
 
-type EditFormValues = Omit<Secret, "addedDate"> & {
-  icon: FileList | null;
-};
+type EditFormValues = Omit<Secret, "addedDate">;
 
-const defaultValues: EditFormValues = {
-  name: "",
-  secret: "",
-  icon: null,
-};
-
-export const EditForm = ({ name, onCancel }: EditFormProps) => {
+export const EditForm = ({ secret, onClose }: EditFormProps) => {
+  const { autherConfig } = useAutherConfigStore();
+  const defaultValues = autherConfig.secrets.find((item) => item.secret === secret.secret) as EditFormValues;
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm<EditFormValues>({ defaultValues });
 
   const onSubmit = async (values: EditFormValues) => {
-    const file = values.icon?.[0];
-    let icon = null;
-
-    if (file) {
-      icon = await readFile(file, "url");
-    }
-
     const extendedValues: Secret = {
+      ...secret,
       name: values.name,
       secret: values.secret.replace(/\s/g, "").toUpperCase(),
-      addedDate: Date.now(),
-      icon,
+      icon: values.icon,
     };
 
-    await addSecretCode(extendedValues);
+    await editSecretCode(extendedValues);
 
-    onCancel();
+    onClose();
   };
 
   return (
     <form className="edit-form" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="title">
-        Edit <span>{name}</span> code
+        Edit <span>{secret.name}</span> code
       </h2>
       <Input<EditFormValues>
         name="name"
@@ -68,9 +56,11 @@ export const EditForm = ({ name, onCancel }: EditFormProps) => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Upload<EditFormValues> name="icon" label="Icon" register={register} errors={errors} />
+      <Upload<EditFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
       <div className="buttons">
-        <Button className="cancel-button">Cancel</Button>
+        <Button className="cancel-button" onClick={onClose}>
+          Cancel
+        </Button>
         <Button type="submit" className="save-button">
           Save
         </Button>

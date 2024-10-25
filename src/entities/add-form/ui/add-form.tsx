@@ -12,9 +12,7 @@ type AddFormProps = {
   onClose: () => void;
 };
 
-type AddFormValues = Omit<Secret, "addedDate"> & {
-  icon: FileList | null;
-};
+type AddFormValues = Omit<Secret, "id" | "addedDate">;
 
 const defaultValues: AddFormValues = {
   name: "",
@@ -33,21 +31,15 @@ export const AddForm = ({ onClose }: AddFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm<AddFormValues>({ defaultValues });
 
   const onSubmit = async (values: AddFormValues) => {
-    const file = values.icon?.[0];
-    let icon = null;
-
-    if (file) {
-      icon = await readFile(file, "url");
-    }
-
-    const extendedValues: Secret = {
+    const extendedValues: Omit<Secret, "id" | "addedDate"> = {
       name: values.name,
       secret: values.secret.replace(/\s/g, "").toUpperCase(),
-      addedDate: Date.now(),
-      icon,
+      icon: values.icon,
     };
 
     await addSecretCode(extendedValues);
@@ -74,7 +66,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
       />
       <Tabs buttons={["Upload", "Link"]} value={valueTabs} onChange={handleTabChange} />
       <TabPanel value={valueTabs} index={0}>
-        <Upload<AddFormValues> name="icon" label="Icon" register={register} errors={errors} />
+        <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
       </TabPanel>
       <TabPanel value={valueTabs} index={1}>
         <Input
@@ -86,7 +78,9 @@ export const AddForm = ({ onClose }: AddFormProps) => {
         />
       </TabPanel>
       <div className="buttons">
-        <Button className="cancel-button">Cancel</Button>
+        <Button className="cancel-button" onClick={onClose}>
+          Cancel
+        </Button>
         <Button type="submit" className="save-button">
           Save
         </Button>

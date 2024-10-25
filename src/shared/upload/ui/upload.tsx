@@ -1,43 +1,37 @@
-import { useState } from "react";
 import { useDropzone } from "react-dropzone";
-import classNames from "classnames";
 
-import { CloseIcon } from "@/shared";
+import { CloseIcon, readFile } from "@/shared";
 import ArrowUp from "@/shared/assets/arrow-up.png";
 
 import "./upload.sass";
 
-import type { UseFormRegister, FieldErrors, RegisterOptions, FieldValues, Path } from "react-hook-form";
+import type { FieldValues, Path, UseFormSetValue, PathValue, UseFormWatch } from "react-hook-form";
 
 type UploadProps<T extends FieldValues> = {
   label?: string;
   name: Path<T>;
-  register: UseFormRegister<T>;
-  errors: FieldErrors<T>;
-  registerOptions?: RegisterOptions<T>;
+  setValue: UseFormSetValue<T>;
+  watch: UseFormWatch<T>;
 };
 
-export const Upload = <T extends FieldValues>({ label, name, register, errors, registerOptions }: UploadProps<T>) => {
-  const [files, setFiles] = useState<File[]>([]);
-
+export const Upload = <T extends FieldValues>({ label, name, setValue, watch }: UploadProps<T>) => {
+  const icon = watch(name);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: setFiles,
+    onDrop: (files) => {
+      const file = files?.[0];
+
+      if (file) {
+        readFile(file, "url").then((url) => setValue(name, url as PathValue<T, Path<T>>));
+      }
+    },
     accept: { Picture: ["image/*"] },
   });
 
-  const handleDeleteFile = (fileToDelete: File) => {
-    const newFiles = files.filter((file) => {
-      file.name === fileToDelete.name;
-    });
-
-    setFiles(newFiles);
-  };
-
   return (
-    <div className={classNames("upload-wrapper", { empty: !files.length })}>
+    <div className={"upload-wrapper"}>
       {label && <label className="label">{label}</label>}
-      <div className={classNames("upload", { error: errors[name] })} {...getRootProps()}>
-        <input maxLength={1} accept="image/*" {...register(name, registerOptions)} {...getInputProps()} />
+      <div className={"upload"} {...getRootProps()}>
+        <input maxLength={1} accept="image/*" {...getInputProps()} />
         {isDragActive ? (
           <p className="text-upload">Drop the files here ...</p>
         ) : (
@@ -47,14 +41,14 @@ export const Upload = <T extends FieldValues>({ label, name, register, errors, r
           </div>
         )}
       </div>
-      {files.map((file) => (
-        <div key={file.name} className="file">
-          <p className="file-name">{file.name}</p>
-          <button onClick={() => handleDeleteFile(file)} className="close-button">
+      {icon && (
+        <div className="file">
+          <p className="file-name">{icon}</p>
+          <button onClick={() => setValue(name, null as PathValue<T, Path<T>>)} className="close-button">
             <CloseIcon className="button-icon" />
           </button>
         </div>
-      ))}
+      )}
     </div>
   );
 };
