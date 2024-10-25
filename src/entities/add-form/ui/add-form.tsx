@@ -5,6 +5,7 @@ import { Input, Upload, Button, addSecretCode, Tabs, TabPanel } from "@/shared";
 
 import "./add-form.sass";
 
+import type { ChangeEvent } from "react";
 import type { Secret } from "@/shared";
 
 type AddFormProps = {
@@ -29,6 +30,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
     setValue,
     watch,
   } = useForm<AddFormValues>({ defaultValues });
+  const icon = watch("icon");
 
   const onSubmit = async (values: AddFormValues) => {
     const extendedValues: Omit<Secret, "id" | "addedDate"> = {
@@ -71,6 +73,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
           errors={errors}
           registerOptions={{ required: true, min: 1 }}
         />
+        {icon && <img src={icon} alt="icon" />}
       </TabPanel>
       <div className="buttons">
         <Button className="cancel-button" onClick={onClose}>
