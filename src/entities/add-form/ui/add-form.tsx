@@ -22,6 +22,8 @@ const defaultValues: AddFormValues = {
 export const AddForm = ({ onClose }: AddFormProps) => {
   const [tab, setTab] = useState<number>(0);
 
+  console.log(tab);
+
   const {
     register,
     handleSubmit,
@@ -59,7 +61,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Tabs buttons={["Upload", "Link"]} value={tab} onChange={() => setTab} />
+      <Tabs buttons={["Upload", "Link"]} value={tab} onChange={(index: number) => setTab(index)} />
       <TabPanel value={tab} index={0}>
         <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
       </TabPanel>

@@ -9,5 +9,4 @@ export { Input } from "./input";
 export { Upload } from "./upload";
 export { Button } from "./button";
 export { Progressbar } from "./progressbar";
-export { Tabs } from "./tabs";
-export { TabPanel } from "./tabs";
+export { Tabs, TabPanel } from "./tabs";

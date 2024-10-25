@@ -5,4 +5,5 @@ export const DEFAULT_SECRET: Secret = {
   secret: "",
   icon: null,
   addedDate: 0,
+  id: "",
 };
