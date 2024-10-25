@@ -59,7 +59,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Tabs buttons={["Upload", "Link"]} value={tab} onChange={(index) => setTab(index)} />
+      <Tabs buttons={["Upload", "Link"]} value={tab} onChange={setTab} />
       <TabPanel value={tab} index={0}>
         <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
       </TabPanel>
