@@ -16,7 +16,7 @@ export const Tabs = ({ buttons, onChange, value }: TabsType) => {
           <button
             type="button"
             onClick={() => onChange(index)}
-            key={button}
+            key={button + index}
             className={classNames("tabs-button", { active: value === index })}
           >
             {button}
