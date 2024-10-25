@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, readFile, addSecretCode } from "@/shared";
+import { Input, Upload, Button, readFile, addSecretCode, Tabs } from "@/shared";
 
 import "./add-form.sass";
 
 import type { Secret } from "@/shared";
+import { TabPanel } from "@/shared/tabs/tab-panel";
 
 type AddFormProps = {
   onClose: () => void;
@@ -21,6 +23,12 @@ const defaultValues: AddFormValues = {
 };
 
 export const AddForm = ({ onClose }: AddFormProps) => {
+  const [valueTabs, setValueTabs] = useState(0);
+
+  const handleTabChange = (index: number) => {
+    setValueTabs(index);
+  };
+
   const {
     register,
     handleSubmit,
@@ -64,7 +72,19 @@ export const AddForm = ({ onClose }: AddFormProps) => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Upload<AddFormValues> name="icon" label="Icon" register={register} errors={errors} />
+      <Tabs buttons={["Upload", "Link"]} value={valueTabs} onChange={handleTabChange} />
+      <TabPanel value={valueTabs} index={0}>
+        <Upload<AddFormValues> name="icon" label="Icon" register={register} errors={errors} />
+      </TabPanel>
+      <TabPanel value={valueTabs} index={1}>
+        <Input
+          name="icon"
+          label="Icon"
+          register={register}
+          errors={errors}
+          registerOptions={{ required: true, min: 1 }}
+        />
+      </TabPanel>
       <div className="buttons">
         <Button className="cancel-button">Cancel</Button>
         <Button type="submit" className="save-button">
