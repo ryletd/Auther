@@ -1,6 +1,6 @@
 import { useDropzone } from "react-dropzone";
 
-import { CloseIcon, readFile } from "@/shared";
+import { readFile } from "@/shared";
 import ArrowUp from "@/shared/assets/arrow-up.png";
 
 import "./upload.sass";
