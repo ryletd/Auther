@@ -1,6 +1,6 @@
 import { useDropzone } from "react-dropzone";
 
-import { CloseIcon, readFile } from "@/shared";
+import { readFile } from "@/shared";
 import ArrowUp from "@/shared/assets/arrow-up.png";
 
 import "./upload.sass";
@@ -24,16 +24,26 @@ export const Upload = <T extends FieldValues>({ label, name, setValue, watch }: 
         readFile(file, "url").then((url) => setValue(name, url as PathValue<T, Path<T>>));
       }
     },
-    accept: { Picture: ["image/*"] },
+    accept: { "image/*": [] },
   });
 
+  const handleRemoveIcon = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setValue(name, null as PathValue<T, Path<T>>);
+  };
+
   return (
-    <div className={"upload-wrapper"}>
+    <div className="upload-wrapper">
       {label && <label className="label">{label}</label>}
-      <div className={"upload"} {...getRootProps()}>
+      <div className="upload" {...getRootProps()}>
         <input maxLength={1} accept="image/*" {...getInputProps()} />
         {isDragActive ? (
           <p className="text-upload">Drop the files here ...</p>
+        ) : icon ? (
+          <div className="icon-block">
+            <img className="icon" src={icon} alt="close" />
+            <button onClick={handleRemoveIcon} className="button-close" />
+          </div>
         ) : (
           <div className="upload-loading">
             <p className="text-upload">Upload</p>
@@ -41,14 +51,6 @@ export const Upload = <T extends FieldValues>({ label, name, setValue, watch }: 
           </div>
         )}
       </div>
-      {icon && (
-        <div className="file">
-          <p className="file-name">{icon}</p>
-          <button onClick={() => setValue(name, null as PathValue<T, Path<T>>)} className="close-button">
-            <CloseIcon className="button-icon" />
-          </button>
-        </div>
-      )}
     </div>
   );
 };
