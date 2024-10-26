@@ -31,7 +31,6 @@ export const AddForm = ({ onClose }: AddFormProps) => {
   } = useForm<AddFormValues>({ defaultValues });
 
   const onSubmit = async (values: AddFormValues) => {
-    console.log(values);
     const extendedValues: Omit<Secret, "id" | "addedDate"> = {
       name: values.name,
       secret: values.secret.replace(/\s/g, "").toUpperCase(),
