@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, editSecretCode, useAutherConfigStore, TabPanel, Tabs } from "@/shared";
+import { Input, Upload, Button, editSecretCode, useAutherConfigStore, Tab, Tabs } from "@/shared";
 
 import "./edit-form.sass";
 
@@ -60,10 +60,10 @@ export const EditForm = ({ secret, onClose }: EditFormProps) => {
         registerOptions={{ required: true, min: 1 }}
       />
       <Tabs buttons={["Upload", "Link"]} value={tab} onChange={setTab} />
-      <TabPanel value={tab} index={0}>
+      <Tab value={tab} index={0}>
         <Upload<EditFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
-      </TabPanel>
-      <TabPanel value={tab} index={1}>
+      </Tab>
+      <Tab value={tab} index={1}>
         <Input
           name="icon"
           label="Icon"
@@ -72,7 +72,7 @@ export const EditForm = ({ secret, onClose }: EditFormProps) => {
           registerOptions={{ required: true, min: 1 }}
         />
         {icon?.startsWith("https://") && <img className="image-link" src={icon} alt="icon" />}
-      </TabPanel>
+      </Tab>
       <div className="buttons">
         <Button className="cancel-button" onClick={onClose}>
           Cancel
