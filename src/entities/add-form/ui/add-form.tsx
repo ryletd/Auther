@@ -5,7 +5,6 @@ import { Input, Upload, Button, addSecretCode, Tabs, TabPanel } from "@/shared";
 
 import "./add-form.sass";
 
-import type { ChangeEvent } from "react";
 import type { Secret } from "@/shared";
 
 type AddFormProps = {
@@ -73,7 +72,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
           errors={errors}
           registerOptions={{ required: true, min: 1 }}
         />
-        {icon && <img src={icon} alt="icon" />}
+        {icon && <img className="image-link" src={icon} alt="icon" />}
       </TabPanel>
       <div className="buttons">
         <Button className="cancel-button" onClick={onClose}>
