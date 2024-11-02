@@ -1,2 +1,2 @@
 export { Tabs } from "./ui/tabs";
-export { TabPanel } from "./tab-panel";
+export { Tab } from "./tab";

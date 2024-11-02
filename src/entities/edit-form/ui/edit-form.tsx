@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, editSecretCode, useAutherConfigStore } from "@/shared";
+import { Input, Upload, Button, editSecretCode, useAutherConfigStore, Tab, Tabs } from "@/shared";
 
 import "./edit-form.sass";
 
@@ -14,6 +15,7 @@ type EditFormProps = {
 type EditFormValues = Omit<Secret, "addedDate">;
 
 export const EditForm = ({ secret, onClose }: EditFormProps) => {
+  const [tab, setTab] = useState<number>(0);
   const { autherConfig } = useAutherConfigStore();
   const defaultValues = autherConfig.secrets.find((item) => item.secret === secret.secret) as EditFormValues;
   const {
@@ -23,6 +25,7 @@ export const EditForm = ({ secret, onClose }: EditFormProps) => {
     setValue,
     watch,
   } = useForm<EditFormValues>({ defaultValues });
+  const icon = watch("icon");
 
   const onSubmit = async (values: EditFormValues) => {
     const extendedValues: Secret = {
@@ -56,7 +59,20 @@ export const EditForm = ({ secret, onClose }: EditFormProps) => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Upload<EditFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
+      <Tabs buttons={["Upload", "Link"]} value={tab} onChange={setTab} />
+      <Tab value={tab} index={0}>
+        <Upload<EditFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
+      </Tab>
+      <Tab value={tab} index={1}>
+        <Input
+          name="icon"
+          label="Icon"
+          register={register}
+          errors={errors}
+          registerOptions={{ required: true, min: 1 }}
+        />
+        {icon?.startsWith("https://") && <img className="image-link" src={icon} alt="icon" />}
+      </Tab>
       <div className="buttons">
         <Button className="cancel-button" onClick={onClose}>
           Cancel
