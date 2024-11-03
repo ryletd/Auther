@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
 import { EditForm, DeleteForm } from "@/entities";
-import { Modal, useAutherConfigStore, getAutherConfig, setAutherConfig } from "@/shared";
+import { Modal, useAutherConfigStore, getAutherConfig, setAutherConfig, Input } from "@/shared";
 
 import type { Secret } from "@/shared";
 
@@ -15,6 +15,7 @@ type TwoFactorAuthListProps = {
 
 export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) => {
   const [progress, setProgress] = useState<number>(0);
+  const [search, setSearch] = useState("");
   const [activeEditSecret, setActiveEditSecret] = useState<Secret | null>(null);
   const [activeDeleteSecret, setActiveDeleteSecret] = useState<Secret | null>(null);
   const { autherConfig } = useAutherConfigStore();
@@ -37,9 +38,20 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
     return () => clearInterval(id);
   }, []);
 
+  const filteredSecrets =
+    autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(search.toLowerCase())) || [];
+
   return (
     <div className="list-wrapper">
-      {autherConfig?.secrets.map((secret) => (
+      <Input
+        name="search"
+        type="text"
+        placeholder="Search key..."
+        registerOptions={{ required: false }}
+        onChange={(event) => setSearch(event.target.value)}
+        errors={{}}
+      />
+      {filteredSecrets.map((secret) => (
         <TwoFactorAuthItem
           key={secret.secret}
           secret={secret}
