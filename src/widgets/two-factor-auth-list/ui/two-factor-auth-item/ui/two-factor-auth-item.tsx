@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import { Progressbar, Button, generate2faCode } from "@/shared";
 import classNames from "classnames";
