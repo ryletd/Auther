@@ -40,7 +40,7 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
   }, []);
 
   const filteredSecrets =
-    autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(deferredSearch.toLowerCase())) || [];
+    autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(deferredSearch.toLowerCase())) ?? [];
 
   return (
     <div className="list-wrapper">
