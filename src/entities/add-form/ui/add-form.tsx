@@ -70,7 +70,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
           label="Icon"
           register={register}
           errors={errors}
-          registerOptions={{ required: true, min: 1 }}
+          registerOptions={{ required: false, min: 1 }}
         />
         {icon && <img className="image-link" src={icon} alt="icon" />}
       </Tab>
