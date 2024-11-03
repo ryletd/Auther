@@ -44,14 +44,16 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
 
   return (
     <div className="list-wrapper">
-      <Input
-        name="search"
-        type="text"
-        placeholder="Search key..."
-        registerOptions={{ required: false }}
-        onChange={(event) => setSearch(event.target.value)}
-        errors={{}}
-      />
+      {editable && (
+        <Input
+          name="search"
+          type="text"
+          placeholder="Search key..."
+          registerOptions={{ required: false }}
+          onChange={(event) => setSearch(event.target.value)}
+          errors={{}}
+        />
+      )}
       {filteredSecrets.map((secret) => (
         <TwoFactorAuthItem
           key={secret.secret}

@@ -7,7 +7,7 @@ type ProgressbarProps = {
 };
 
 const LIMIT = 30;
-const CIRCLE_SQUARE = 94.24;
+const CIRCLE_SQUARE = 94.24; // Circle radius 15 * 2 * Math.PI
 
 export const Progressbar = ({ progress }: ProgressbarProps) => (
   <div className="progressbar-wrapper">
