@@ -21,6 +21,9 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
   const deferredSearch = useDeferredValue(search);
   const { autherConfig } = useAutherConfigStore();
 
+  const filteredSecrets =
+    autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(deferredSearch.toLowerCase())) ?? [];
+
   useEffect(() => {
     getAutherConfig().then(setAutherConfig);
   }, []);
@@ -38,9 +41,6 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
     const id = setInterval(countTime, 1000);
     return () => clearInterval(id);
   }, []);
-
-  const filteredSecrets =
-    autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(deferredSearch.toLowerCase())) ?? [];
 
   return (
     <div className="list-wrapper">
