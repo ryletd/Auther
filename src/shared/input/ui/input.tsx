@@ -10,7 +10,7 @@ type InputProps<T extends FieldValues> = {
   label?: string;
   name: Path<T>;
   register?: UseFormRegister<T>;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   errors: FieldErrors<T>;
   registerOptions?: RegisterOptions<T>;
   placeholder?: string;
@@ -39,7 +39,7 @@ export const Input = <T extends FieldValues>({
       type={type}
       autoComplete="off"
       placeholder={placeholder}
-      {...(onChange ? { onChange } : register ? register(name, registerOptions) : {})}
+      {...(onChange ? { onChange } : register?.(name, registerOptions) || {})}
     />
   </div>
 );
