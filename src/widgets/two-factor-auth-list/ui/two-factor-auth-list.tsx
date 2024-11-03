@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 
 import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
@@ -18,6 +18,7 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
   const [search, setSearch] = useState("");
   const [activeEditSecret, setActiveEditSecret] = useState<Secret | null>(null);
   const [activeDeleteSecret, setActiveDeleteSecret] = useState<Secret | null>(null);
+  const deferredSearch = useDeferredValue(search);
   const { autherConfig } = useAutherConfigStore();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
   }, []);
 
   const filteredSecrets =
-    autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(search.toLowerCase())) || [];
+    autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(deferredSearch.toLowerCase())) || [];
 
   return (
     <div className="list-wrapper">

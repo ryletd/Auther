@@ -39,7 +39,7 @@ export const Input = <T extends FieldValues>({
       type={type}
       autoComplete="off"
       placeholder={placeholder}
-      {...(onChange ? { onChange } : register ? register(name, registerOptions) : null)}
+      {...(onChange ? { onChange } : register ? register(name, registerOptions) : {})}
     />
   </div>
 );
