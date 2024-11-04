@@ -69,7 +69,7 @@ export const EditForm = ({ secret, onClose }: EditFormProps) => {
           label="Icon"
           register={register}
           errors={errors}
-          registerOptions={{ required: true, min: 1 }}
+          registerOptions={{ required: false, min: 1 }}
         />
         {icon?.startsWith("https://") && <img className="image-link" src={icon} alt="icon" />}
       </Tab>
