@@ -6,7 +6,11 @@ export const usePictureExists = (url: string | null) => {
   const [exists, setExists] = useState<boolean>(false);
 
   useEffect(() => {
-    url ? checkPictureExists(url).then(setExists) : setExists(false);
+    if (url) {
+      checkPictureExists(url).then(setExists);
+    }
+
+    return setExists(false);
   }, [url]);
 
   return exists;
