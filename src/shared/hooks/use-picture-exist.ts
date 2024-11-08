@@ -8,9 +8,10 @@ export const usePictureExists = (url: string | null) => {
   useEffect(() => {
     if (url) {
       checkPictureExists(url).then(setExists);
+      return;
     }
 
-    return setExists(false);
+    setExists(false);
   }, [url]);
 
   return exists;
