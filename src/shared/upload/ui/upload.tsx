@@ -1,6 +1,6 @@
 import { useDropzone } from "react-dropzone";
 
-import { readFile } from "@/shared";
+import { readFile, usePictureExists } from "@/shared";
 import ArrowUp from "@/shared/assets/arrow-up.png";
 
 import "./upload.sass";
@@ -16,6 +16,7 @@ type UploadProps<T extends FieldValues> = {
 
 export const Upload = <T extends FieldValues>({ label, name, setValue, watch }: UploadProps<T>) => {
   const icon = watch(name);
+  const iconExists = usePictureExists(icon);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (files) => {
       const file = files?.[0];
@@ -39,7 +40,7 @@ export const Upload = <T extends FieldValues>({ label, name, setValue, watch }: 
         <input maxLength={1} accept="image/*" {...getInputProps()} />
         {isDragActive ? (
           <p className="text-upload">Drop the files here ...</p>
-        ) : icon ? (
+        ) : iconExists && icon ? (
           <div className="icon-block">
             <img className="icon" src={icon} alt="close" />
             <button onClick={handleRemoveIcon} className="button-close" />
