@@ -16,8 +16,8 @@ export const importAutherConfig = async (encryptedImportedConfig: AutherConfig):
     exportedSecrets: importedConfig.exportedSecrets.concat(
       config.exportedSecrets.filter((item) => !importedConfig.exportedSecrets.includes(item))
     ),
-    secrets: config.secrets.concat(
-      importedConfig.secrets.filter(({ secret }) => !config.secrets.find((item) => item.secret === secret))
-    ),
+    secrets: config.secrets
+      .concat(importedConfig.secrets.filter(({ secret }) => !config.secrets.find((item) => item.secret === secret)))
+      .map((item, index) => ({ ...item, position: index })),
   });
 };

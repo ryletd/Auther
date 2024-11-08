@@ -18,7 +18,7 @@ export const setAutherConfig = async (autherConfig: AutherConfig) => {
   await saveAutherConfig(autherConfig);
 };
 
-export const addSecretCode = async (secret: Omit<Secret, "id" | "addedDate">): Promise<void> => {
+export const addSecretCode = async (secret: Omit<Secret, "id" | "position" | "addedDate">): Promise<void> => {
   const { autherConfig } = useAutherConfigStore.getState();
   const isExist = autherConfig.secrets.find((item) => item.secret === secret.secret);
 
@@ -28,18 +28,13 @@ export const addSecretCode = async (secret: Omit<Secret, "id" | "addedDate">): P
 
   const state = {
     ...autherConfig,
-    secrets: autherConfig.secrets.concat({ ...secret, id: getIdFromString(secret.secret), addedDate: Date.now() }),
+    secrets: autherConfig.secrets.concat({
+      ...secret,
+      id: getIdFromString(secret.secret),
+      position: autherConfig.secrets.length,
+      addedDate: Date.now(),
+    }),
   };
-
-  await setAutherConfig(state);
-};
-
-export const deleteSecretCode = async (secret: string): Promise<void> => {
-  const { autherConfig } = useAutherConfigStore.getState();
-  const exportedSecrets = autherConfig.exportedSecrets.filter((item) => item !== secret);
-  const secrets = autherConfig.secrets.filter((item) => item.secret !== secret);
-
-  const state = { ...autherConfig, exportedSecrets, secrets };
 
   await setAutherConfig(state);
 };
@@ -59,3 +54,17 @@ export const editSecretCode = async (secret: Secret): Promise<void> => {
 
   await setAutherConfig(state);
 };
+
+export const deleteSecretCode = async (secret: string): Promise<void> => {
+  const { autherConfig } = useAutherConfigStore.getState();
+  const exportedSecrets = autherConfig.exportedSecrets.filter((item) => item !== secret);
+  const secrets = autherConfig.secrets
+    .filter((item) => item.secret !== secret)
+    .map((item, index) => ({ ...item, position: index }));
+
+  const state = { ...autherConfig, exportedSecrets, secrets };
+
+  await setAutherConfig(state);
+};
+
+export const changeSecretPosition = async (): Promise<void> => {};
