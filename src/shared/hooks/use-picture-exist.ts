@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { checkPictureExists } from "../utils";
+
+import { checkPictureExists } from "@/shared";
 
 export const usePictureExists = (url: string | null) => {
   const [exists, setExists] = useState<boolean>(false);
