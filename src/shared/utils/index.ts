@@ -6,3 +6,4 @@ export * from "./generate-2fa-code";
 export * from "./read-file";
 export * from "./get-id-from-string";
 export * from "./encryption";
+export * from "./check-image-exists";

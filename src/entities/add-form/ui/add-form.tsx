@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, addSecretCode, Tabs, Tab } from "@/shared";
+import { Input, Upload, Button, addSecretCode, Tabs, Tab, useImageExists } from "@/shared";
 
 import "./add-form.sass";
 
@@ -30,6 +30,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
     watch,
   } = useForm<AddFormValues>({ defaultValues });
   const icon = watch("icon");
+  const iconExists = useImageExists(icon);
 
   const onSubmit = async (values: AddFormValues) => {
     const extendedValues: Omit<Secret, "id" | "addedDate"> = {
@@ -72,7 +73,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
           errors={errors}
           registerOptions={{ required: false, min: 1 }}
         />
-        {icon && <img className="image-link" src={icon} alt="icon" />}
+        {icon && iconExists && <img className="image-link" src={icon} alt="icon" />}
       </Tab>
       <div className="buttons">
         <Button className="cancel-button" onClick={onClose}>
