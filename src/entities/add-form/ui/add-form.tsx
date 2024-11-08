@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, addSecretCode, Tabs, Tab, useImageExists } from "@/shared";
+import { Input, Upload, Button, addSecretCode, Tabs, Tab, usePictureExists } from "@/shared";
 
 import "./add-form.sass";
 
@@ -30,7 +30,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
     watch,
   } = useForm<AddFormValues>({ defaultValues });
   const icon = watch("icon");
-  const iconExists = useImageExists(icon);
+  const iconExists = usePictureExists(icon);
 
   const onSubmit = async (values: AddFormValues) => {
     const extendedValues: Omit<Secret, "id" | "addedDate"> = {

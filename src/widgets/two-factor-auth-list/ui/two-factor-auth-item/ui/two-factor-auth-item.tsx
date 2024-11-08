@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Progressbar, Button, generate2faCode, useImageExists } from "@/shared";
+import { Progressbar, Button, generate2faCode, usePictureExists } from "@/shared";
 import classNames from "classnames";
 
 import CopyIcon from "@/shared/assets/copy.png";
@@ -23,7 +23,7 @@ export const TwoFactorAuthItem = ({ secret, progress, onCancel, onDelete }: TwoF
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [copyId, setCopyId] = useState<number>(0);
   const code = generate2faCode(secret.secret);
-  const iconExists = useImageExists(secret.icon);
+  const iconExists = usePictureExists(secret.icon);
   const warning = progress <= 5;
 
   const copyCode = async () => {

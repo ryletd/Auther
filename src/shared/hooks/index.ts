@@ -1,1 +1,1 @@
-export * from "./use-image-exist";
+export * from "./use-picture-exist";
