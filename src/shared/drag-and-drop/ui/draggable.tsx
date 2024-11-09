@@ -19,7 +19,7 @@ export const Draggable = ({ id, children }: DraggableProps) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style}>
       {cloneElement(children, {
         dragHandleProps: { ...attributes, ...listeners },
       })}
