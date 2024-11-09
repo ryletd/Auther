@@ -1,9 +1,11 @@
 import { useDeferredValue, useEffect, useState } from "react";
+import { DndContext } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
 import { EditForm, DeleteForm } from "@/entities";
-import { Modal, useAutherConfigStore, getAutherConfig, setAutherConfig, Input } from "@/shared";
+import { Modal, useAutherConfigStore, getAutherConfig, setAutherConfig, Input, Draggable, Droppable } from "@/shared";
 
 import type { Secret } from "@/shared";
 
@@ -44,25 +46,49 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
 
   return (
     <div className="list-wrapper">
-      {editable && (
-        <Input
-          name="search"
-          type="text"
-          placeholder="Search key..."
-          registerOptions={{ required: false }}
-          onChange={(event) => setSearch(event.target.value)}
-          errors={{}}
-        />
+      {editable ? (
+        <>
+          <Input
+            name="search"
+            type="text"
+            placeholder="Search key..."
+            registerOptions={{ required: false }}
+            onChange={(event) => setSearch(event.target.value)}
+            errors={{}}
+          />
+          <DndContext>
+            <SortableContext
+              items={filteredSecrets.map((secret) => secret.secret)}
+              strategy={verticalListSortingStrategy}
+            >
+              <Droppable className="drop-wrapper" id="droppable-area">
+                {filteredSecrets.map((secret) => (
+                  <Draggable id={secret.secret}>
+                    <TwoFactorAuthItem
+                      key={secret.secret}
+                      secret={secret}
+                      progress={progress}
+                      isDragnDrop={true}
+                      onCancel={editable ? () => setActiveEditSecret(secret) : undefined}
+                      onDelete={editable ? () => setActiveDeleteSecret(secret) : undefined}
+                    />
+                  </Draggable>
+                ))}
+              </Droppable>
+            </SortableContext>
+          </DndContext>
+        </>
+      ) : (
+        filteredSecrets.map((secret) => (
+          <TwoFactorAuthItem
+            key={secret.secret}
+            secret={secret}
+            progress={progress}
+            onCancel={editable ? () => setActiveEditSecret(secret) : undefined}
+            onDelete={editable ? () => setActiveDeleteSecret(secret) : undefined}
+          />
+        ))
       )}
-      {filteredSecrets.map((secret) => (
-        <TwoFactorAuthItem
-          key={secret.secret}
-          secret={secret}
-          progress={progress}
-          onCancel={editable ? setActiveEditSecret : undefined}
-          onDelete={editable ? setActiveDeleteSecret : undefined}
-        />
-      ))}
       <Modal open={!!activeEditSecret} width="600px" onClose={() => setActiveEditSecret(null)}>
         <EditForm secret={activeEditSecret!} onClose={() => setActiveEditSecret(null)} />
       </Modal>
