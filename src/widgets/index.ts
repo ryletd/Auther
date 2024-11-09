@@ -1,1 +1,1 @@
-export { TwoFactorAuthList } from "./two-factor-auth-list";
+export { SecretCodesList } from "./secret-codes-list";

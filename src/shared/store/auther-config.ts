@@ -12,10 +12,12 @@ export const useAutherConfigStore = create<AutherConfigState>(() => ({
   autherConfig: DEFAULT_AUTHER_CONFIG,
 }));
 
-export const setAutherConfig = async (autherConfig: AutherConfig) => {
+export const setAutherConfig = async (autherConfig: AutherConfig, save = true) => {
   useAutherConfigStore.setState({ autherConfig });
 
-  await saveAutherConfig(autherConfig);
+  if (save) {
+    await saveAutherConfig(autherConfig);
+  }
 };
 
 export const addSecretCode = async (secret: Omit<Secret, "id" | "position" | "addedDate">): Promise<void> => {

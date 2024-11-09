@@ -6,33 +6,22 @@ import CopyIcon from "@/shared/assets/copy.png";
 import EditIcon from "@/shared/assets/edit.png";
 import DeleteIcon from "@/shared/assets/delete.png";
 
-import "./two-factor-auth-item.sass";
+import "./list-item.sass";
 
 import type { MouseEvent } from "react";
-import type { Secret } from "@/shared";
 import type { DraggableAttributes } from "@dnd-kit/core";
 import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import type { Secret } from "@/shared";
 
-type TwoFactorAuthItemProps = {
+type ListItemProps = {
   secret: Secret;
   progress: number;
-  onCancel?: (secret: Secret) => void;
+  onEdit?: (secret: Secret) => void;
   onDelete?: (secret: Secret) => void;
-  isDragnDrop?: boolean;
-  dragHandleProps?: {
-    attributes: DraggableAttributes;
-    listeners: SyntheticListenerMap | undefined;
-  };
+  dragHandleProps?: DraggableAttributes | SyntheticListenerMap;
 };
 
-export const TwoFactorAuthItem = ({
-  secret,
-  progress,
-  onCancel,
-  onDelete,
-  isDragnDrop,
-  dragHandleProps,
-}: TwoFactorAuthItemProps) => {
+export const ListItem = ({ secret, progress, onEdit, onDelete, dragHandleProps }: ListItemProps) => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [copyId, setCopyId] = useState<number>(0);
   const code = generate2faCode(secret.secret);
@@ -52,7 +41,7 @@ export const TwoFactorAuthItem = ({
 
   const editSecret = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    onCancel?.(secret);
+    onEdit?.(secret);
   };
 
   const deleteSecret = (event: MouseEvent<HTMLButtonElement>) => {
@@ -61,8 +50,8 @@ export const TwoFactorAuthItem = ({
   };
 
   return (
-    <div className={classNames("wrapper", { copied: isCopied })} onClick={copyCode}>
-      {isDragnDrop && <div className="drop" {...dragHandleProps} />}
+    <div className={classNames("list-item", { copied: isCopied })} onClick={copyCode}>
+      {dragHandleProps && <div className="drop" {...dragHandleProps} />}
       {secret.icon && iconExists ? (
         <img className={classNames("icon", { warning })} src={secret.icon} alt="icon" />
       ) : (
@@ -76,7 +65,7 @@ export const TwoFactorAuthItem = ({
         <button className={classNames("copy-button", { copied: isCopied })} onClick={copyCode}>
           <img src={CopyIcon} alt="icon" />
         </button>
-        {!!onCancel && (
+        {!!onEdit && (
           <Button className="edit-button" onClick={editSecret}>
             <img src={EditIcon} alt="edit" />
           </Button>
