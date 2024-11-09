@@ -1,3 +1,4 @@
+import { cloneElement } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -19,7 +20,9 @@ export const Draggable = ({ id, children }: DraggableProps) => {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {children}
+      {cloneElement(children, {
+        dragHandleProps: { ...attributes, ...listeners },
+      })}
     </div>
   );
 };
