@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { Progressbar, Button, generate2faCode, usePictureExists } from "@/shared";
 import classNames from "classnames";
 
@@ -11,15 +10,27 @@ import "./two-factor-auth-item.sass";
 
 import type { MouseEvent } from "react";
 import type { Secret } from "@/shared";
+import type { DraggableAttributes } from "@dnd-kit/core";
+import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 
 type TwoFactorAuthItemProps = {
   secret: Secret;
   progress: number;
   onCancel?: (secret: Secret) => void;
   onDelete?: (secret: Secret) => void;
+  dragHandleProps?: {
+    attributes: DraggableAttributes;
+    listeners: SyntheticListenerMap | undefined;
+  };
 };
 
-export const TwoFactorAuthItem = ({ secret, progress, onCancel, onDelete }: TwoFactorAuthItemProps) => {
+export const TwoFactorAuthItem = ({
+  secret,
+  progress,
+  onCancel,
+  onDelete,
+  dragHandleProps,
+}: TwoFactorAuthItemProps) => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [copyId, setCopyId] = useState<number>(0);
   const code = generate2faCode(secret.secret);
@@ -39,18 +50,17 @@ export const TwoFactorAuthItem = ({ secret, progress, onCancel, onDelete }: TwoF
 
   const editSecret = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-
     onCancel?.(secret);
   };
 
   const deleteSecret = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-
     onDelete?.(secret);
   };
 
   return (
     <div className={classNames("wrapper", { copied: isCopied })} onClick={copyCode}>
+      <div className="drop" {...dragHandleProps} />
       {secret.icon && iconExists ? (
         <img className={classNames("icon", { warning })} src={secret.icon} alt="icon" />
       ) : (

@@ -17,9 +17,26 @@
     box-shadow: 0 0 0 0.4rem $green
     background: rgba($green, 0.2)
 
+  .drop
+    display: flex
+    flex-direction: column
+    font-weight: 600
+    transform: rotate(270deg)
+    margin-right: 0.6rem
+    &::after, &::before
+      content: '.   .   .'
+      letter-spacing: 0.3rem
+      font-size: 1.5rem
+      font-weight: 600
+      
+
+
+     
+
+
   .icon
     user-select: none
-    pointer-events: none
+    pointer-events: none  
     display: flex
     align-items: center
     justify-content: center

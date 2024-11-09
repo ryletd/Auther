@@ -1,13 +1,16 @@
 import { useDeferredValue, useEffect, useState } from "react";
+import { DndContext } from "@dnd-kit/core";
 
 import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
 import { EditForm, DeleteForm } from "@/entities";
-import { Modal, useAutherConfigStore, getAutherConfig, setAutherConfig, Input } from "@/shared";
+import { Modal, useAutherConfigStore, getAutherConfig, setAutherConfig, Input, Draggable, Droppable } from "@/shared";
 
 import type { Secret } from "@/shared";
 
 import "./two-factor-auth-list.sass";
+
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 type TwoFactorAuthListProps = {
   editable?: boolean;
@@ -54,15 +57,24 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
           errors={{}}
         />
       )}
-      {filteredSecrets.map((secret) => (
-        <TwoFactorAuthItem
-          key={secret.secret}
-          secret={secret}
-          progress={progress}
-          onCancel={editable ? setActiveEditSecret : undefined}
-          onDelete={editable ? setActiveDeleteSecret : undefined}
-        />
-      ))}
+      <DndContext>
+        <SortableContext items={filteredSecrets.map((secret) => secret.secret)} strategy={verticalListSortingStrategy}>
+          <Droppable className="drop-wrapper" id="droppable-area">
+            {filteredSecrets.map((secret) => (
+              <Draggable id={secret.secret}>
+                <TwoFactorAuthItem
+                  key={secret.secret}
+                  secret={secret}
+                  progress={progress}
+                  onCancel={editable ? () => setActiveEditSecret(secret) : undefined}
+                  onDelete={editable ? () => setActiveDeleteSecret(secret) : undefined}
+                />
+              </Draggable>
+            ))}
+          </Droppable>
+        </SortableContext>
+      </DndContext>
+
       <Modal open={!!activeEditSecret} width="600px" onClose={() => setActiveEditSecret(null)}>
         <EditForm secret={activeEditSecret!} onClose={() => setActiveEditSecret(null)} />
       </Modal>
