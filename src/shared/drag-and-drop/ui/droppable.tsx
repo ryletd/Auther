@@ -17,7 +17,6 @@ export const Droppable = ({ id, children, className }: DroppableType) => {
     color: isOver ? "green" : undefined,
   };
 
-  console.log(isOver);
   return (
     <div className={className} ref={setNodeRef} style={style}>
       {children}

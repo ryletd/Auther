@@ -18,6 +18,7 @@ type TwoFactorAuthItemProps = {
   progress: number;
   onCancel?: (secret: Secret) => void;
   onDelete?: (secret: Secret) => void;
+  isDragnDrop?: boolean;
   dragHandleProps?: {
     attributes: DraggableAttributes;
     listeners: SyntheticListenerMap | undefined;
@@ -29,6 +30,7 @@ export const TwoFactorAuthItem = ({
   progress,
   onCancel,
   onDelete,
+  isDragnDrop,
   dragHandleProps,
 }: TwoFactorAuthItemProps) => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
@@ -60,7 +62,8 @@ export const TwoFactorAuthItem = ({
 
   return (
     <div className={classNames("wrapper", { copied: isCopied })} onClick={copyCode}>
-      <div className="drop" {...dragHandleProps} />
+      {isDragnDrop && <div className="drop" {...dragHandleProps} />}
+
       {secret.icon && iconExists ? (
         <img className={classNames("icon", { warning })} src={secret.icon} alt="icon" />
       ) : (
