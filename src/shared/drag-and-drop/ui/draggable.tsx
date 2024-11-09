@@ -12,17 +12,16 @@ type DraggableProps = {
 export const Draggable = ({ id, children }: DraggableProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    zIndex: transform ? 1000 : "auto",
-  };
-
   return (
-    <div ref={setNodeRef} style={style}>
-      {cloneElement(children, {
-        dragHandleProps: { ...attributes, ...listeners },
-      })}
+    <div
+      ref={setNodeRef}
+      style={{
+        transition,
+        transform: CSS.Transform.toString(transform),
+        zIndex: transform ? 1000 : "auto",
+      }}
+    >
+      {cloneElement(children, { dragHandleProps: { ...attributes, ...listeners } })}
     </div>
   );
 };

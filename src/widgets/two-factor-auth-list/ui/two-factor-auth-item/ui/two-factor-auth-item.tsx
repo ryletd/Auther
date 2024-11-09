@@ -63,7 +63,6 @@ export const TwoFactorAuthItem = ({
   return (
     <div className={classNames("wrapper", { copied: isCopied })} onClick={copyCode}>
       {isDragnDrop && <div className="drop" {...dragHandleProps} />}
-
       {secret.icon && iconExists ? (
         <img className={classNames("icon", { warning })} src={secret.icon} alt="icon" />
       ) : (

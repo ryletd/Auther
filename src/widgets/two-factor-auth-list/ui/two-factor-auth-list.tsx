@@ -1,5 +1,6 @@
 import { useDeferredValue, useEffect, useState } from "react";
 import { DndContext } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 import { TwoFactorAuthItem } from "./two-factor-auth-item";
 
@@ -9,8 +10,6 @@ import { Modal, useAutherConfigStore, getAutherConfig, setAutherConfig, Input, D
 import type { Secret } from "@/shared";
 
 import "./two-factor-auth-list.sass";
-
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 type TwoFactorAuthListProps = {
   editable?: boolean;
@@ -90,7 +89,6 @@ export const TwoFactorAuthList = ({ editable = false }: TwoFactorAuthListProps) 
           />
         ))
       )}
-
       <Modal open={!!activeEditSecret} width="600px" onClose={() => setActiveEditSecret(null)}>
         <EditForm secret={activeEditSecret!} onClose={() => setActiveEditSecret(null)} />
       </Modal>

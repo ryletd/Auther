@@ -1,2 +1,2 @@
-export * from "./ui/draggable";
-export * from "./ui/droppable";
+export { Draggable } from "./ui/draggable";
+export { Droppable } from "./ui/droppable";

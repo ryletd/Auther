@@ -9,16 +9,10 @@ type DroppableType = {
 };
 
 export const Droppable = ({ id, children, className }: DroppableType) => {
-  const { isOver, setNodeRef } = useDroppable({
-    id,
-  });
-
-  const style = {
-    color: isOver ? "green" : undefined,
-  };
+  const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div className={className} ref={setNodeRef} style={style}>
+    <div className={className} ref={setNodeRef}>
       {children}
     </div>
   );
