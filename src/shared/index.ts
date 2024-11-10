@@ -10,4 +10,4 @@ export { Upload } from "./upload";
 export { Button } from "./button";
 export { Progressbar } from "./progressbar";
 export { Tabs, Tab } from "./tabs";
-export { InputSearch } from "./input-search";
+export { Search } from "./search";
