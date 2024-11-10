@@ -2,7 +2,9 @@ import { useSortable, SortableContext, verticalListSortingStrategy } from "@dnd-
 import { useDroppable, DndContext } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
-import type { HTMLAttributes, ReactNode } from "react";
+import "./draggable-list.sass";
+
+import type { ReactNode } from "react";
 import type { DraggableAttributes } from "@dnd-kit/core";
 import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import type { Secret } from "@/shared";
@@ -28,7 +30,7 @@ export const DraggableList = ({ id, secrets, children }: DraggableListProps) => 
   return (
     <DndContext>
       <SortableContext items={secrets.map(({ secret }) => secret)} strategy={verticalListSortingStrategy}>
-        <div className="drop-wrapper" ref={setNodeRef}>
+        <div className="draggable-wrapper" ref={setNodeRef}>
           {children}
         </div>
       </SortableContext>
