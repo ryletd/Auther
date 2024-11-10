@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Input, Upload, Button, readFile, addSecretCode } from "@/shared";
+import { Input, Upload, Button, addSecretCode, Tabs, Tab, usePictureExists } from "@/shared";
 
 import "./add-form.sass";
 
@@ -19,6 +20,8 @@ const defaultValues: AddFormValues = {
 };
 
 export const AddForm = ({ onClose }: AddFormProps) => {
+  const [tab, setTab] = useState<number>(0);
+
   const {
     register,
     handleSubmit,
@@ -26,6 +29,8 @@ export const AddForm = ({ onClose }: AddFormProps) => {
     setValue,
     watch,
   } = useForm<AddFormValues>({ defaultValues });
+  const icon = watch("icon");
+  const iconExists = usePictureExists(icon);
 
   const onSubmit = async (values: AddFormValues) => {
     const extendedValues: Omit<Secret, "id" | "addedDate"> = {
@@ -41,7 +46,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
 
   return (
     <form className="add-form" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="title">Add new 2fa code</h2>
+      <h2 className="title">Add new 2FA code</h2>
       <Input<AddFormValues>
         name="name"
         label="Name"
@@ -56,9 +61,24 @@ export const AddForm = ({ onClose }: AddFormProps) => {
         errors={errors}
         registerOptions={{ required: true, min: 1 }}
       />
-      <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
+      <Tabs buttons={["Upload", "Link"]} value={tab} onChange={setTab} />
+      <Tab value={tab} index={0}>
+        <Upload<AddFormValues> name="icon" label="Icon" setValue={setValue} watch={watch} />
+      </Tab>
+      <Tab value={tab} index={1}>
+        <Input
+          name="icon"
+          label="Icon"
+          register={register}
+          errors={errors}
+          registerOptions={{ required: false, min: 1 }}
+        />
+        {icon && iconExists && <img className="image-link" src={icon} alt="icon" />}
+      </Tab>
       <div className="buttons">
-        <Button className="cancel-button">Cancel</Button>
+        <Button className="cancel-button" onClick={onClose}>
+          Cancel
+        </Button>
         <Button type="submit" className="save-button">
           Save
         </Button>

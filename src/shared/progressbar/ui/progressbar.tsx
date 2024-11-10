@@ -1,3 +1,5 @@
+import classnames from "classnames";
+
 import "./progressbar.sass";
 
 type ProgressbarProps = {
@@ -5,19 +7,17 @@ type ProgressbarProps = {
 };
 
 const LIMIT = 30;
+const CIRCLE_SQUARE = 94.24; // Circle radius 15 * 2 * Math.PI
 
-export const Progressbar = ({ progress }: ProgressbarProps) => {
-  const percent = (LIMIT - progress) * (360 / LIMIT);
-  const warning = progress <= 5;
-
-  return (
-    <div
-      className="progressbar-wrapper"
-      style={{ background: `conic-gradient(${warning ? "#ff3838" : "#32ff7e"} ${percent}deg, #777777 ${percent}deg)` }}
-    >
-      <div className="progressbar">
-        <div className="progressbar-text">{progress}</div>
-      </div>
-    </div>
-  );
-};
+export const Progressbar = ({ progress }: ProgressbarProps) => (
+  <div className="progressbar-wrapper">
+    <svg className="progressbar" viewBox="-1.25 -1.25 32.5 32.5" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <circle strokeDashoffset="0" />
+      <circle
+        className={classnames({ warning: progress <= 5, "no-transition": progress === LIMIT })}
+        strokeDashoffset={(CIRCLE_SQUARE / LIMIT) * progress}
+      />
+    </svg>
+    <div className="progressbar-text">{progress}</div>
+  </div>
+);

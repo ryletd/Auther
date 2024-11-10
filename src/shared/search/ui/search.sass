@@ -1,6 +1,7 @@
 @import "../../colors"
 
-.input-wrapper
+.search-wrapper
+  position: relative
   user-select: none
   max-width: 40rem
   margin: 0 auto
@@ -12,7 +13,7 @@
   .input
     display: block
     margin-top: 1rem
-    padding: 1rem
+    padding: 1rem 1em 1rem 2em
     width: 100%
     background: transparent
     border-radius: 0.5rem
@@ -20,9 +21,15 @@
     box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
     transition: 0.2s
 
-    &.error
-      border-color: $red
-
     &:hover,
     &:focus
       box-shadow: 0 0 0 0.4rem $green
+      
+  .search-icon 
+    position: absolute
+    width: 2rem
+    height: 2rem
+    top: 0.8rem
+    left: 1rem
+ 
+

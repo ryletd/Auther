@@ -1,10 +1,10 @@
 @import "../../../../../shared/colors"
 
-.wrapper
+.list-item
   cursor: pointer
   display: flex
   align-items: center
-  padding: 1rem
+  padding-right: 1rem
   box-shadow: 0 0 0 0.2rem rgba($green, 0.3)
   border-radius: 1rem
   background: $black-2
@@ -17,6 +17,20 @@
     box-shadow: 0 0 0 0.4rem $green
     background: rgba($green, 0.2)
 
+  .drag-button
+    display: flex
+    align-items: center
+    width: 3rem
+    height: 6rem
+    padding-left: 1rem
+    background: transparent
+
+    & > div
+      width: 100%
+      height: 1rem
+      border-top: 0.2rem solid $gray
+      border-bottom: 0.2rem solid $gray
+
   .icon
     user-select: none
     pointer-events: none
@@ -28,11 +42,12 @@
     height: 3rem
     border: 0.3rem solid $green
     object-fit: cover
+    margin-left: 1rem
 
   .inner-wrapper
+    padding: 1rem
     display: flex
     align-items: start
-    margin-left: 1rem
     flex-direction: column
     gap: 0.5rem
     overflow: hidden

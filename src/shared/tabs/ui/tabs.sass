@@ -1,0 +1,35 @@
+@import "../../colors"
+
+.tabs
+    max-width: 40rem
+    margin: 0 auto
+
+.wrapper-buttons
+    display: inline-flex
+    margin-top: 2rem
+
+    .tabs-button
+        position: relative
+        background: transparent
+        padding: 1rem
+        min-width: 10rem
+        font-size: 2rem
+
+        &:hover::before
+            transform: scaleX(1)
+
+        &::before
+            content: ''
+            position: absolute
+            left: 0
+            bottom: 0
+            width: 100%
+            transform: scaleX(0)
+            border-bottom: 0.2rem solid $green
+            transition: 0.15s
+
+        &.active
+            color: $green
+
+            &::before
+                transform: scaleX(1)

@@ -1,28 +1,31 @@
-import { useCallback, useState } from "react";
-
-import { Progressbar, Button, generate2faCode } from "@/shared";
+import { useState } from "react";
+import { Progressbar, Button, generate2faCode, usePictureExists } from "@/shared";
 import classNames from "classnames";
 
 import CopyIcon from "@/shared/assets/copy.png";
 import EditIcon from "@/shared/assets/edit.png";
 import DeleteIcon from "@/shared/assets/delete.png";
 
-import "./two-factor-auth-item.sass";
+import "./list-item.sass";
 
 import type { MouseEvent } from "react";
+import type { DraggableAttributes } from "@dnd-kit/core";
+import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import type { Secret } from "@/shared";
 
-type TwoFactorAuthItemProps = {
+type ListItemProps = {
   secret: Secret;
   progress: number;
-  onCancel?: (secret: Secret) => void;
+  onEdit?: (secret: Secret) => void;
   onDelete?: (secret: Secret) => void;
+  dragHandleProps?: DraggableAttributes | SyntheticListenerMap;
 };
 
-export const TwoFactorAuthItem = ({ secret, progress, onCancel, onDelete }: TwoFactorAuthItemProps) => {
+export const ListItem = ({ secret, progress, onEdit, onDelete, dragHandleProps }: ListItemProps) => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [copyId, setCopyId] = useState<number>(0);
   const code = generate2faCode(secret.secret);
+  const iconExists = usePictureExists(secret.icon);
   const warning = progress <= 5;
 
   const copyCode = async () => {
@@ -38,19 +41,22 @@ export const TwoFactorAuthItem = ({ secret, progress, onCancel, onDelete }: TwoF
 
   const editSecret = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-
-    onCancel?.(secret);
+    onEdit?.(secret);
   };
 
   const deleteSecret = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-
     onDelete?.(secret);
   };
 
   return (
-    <div className={classNames("wrapper", { copied: isCopied })} onClick={copyCode}>
-      {secret.icon ? (
+    <div className={classNames("list-item", { copied: isCopied })} onClick={copyCode}>
+      {dragHandleProps && (
+        <button className="drag-button" {...dragHandleProps}>
+          <div />
+        </button>
+      )}
+      {secret.icon && iconExists ? (
         <img className={classNames("icon", { warning })} src={secret.icon} alt="icon" />
       ) : (
         <div className={classNames("icon", { warning })}>{secret.name.at(0)?.toUpperCase()}</div>
@@ -63,7 +69,7 @@ export const TwoFactorAuthItem = ({ secret, progress, onCancel, onDelete }: TwoF
         <button className={classNames("copy-button", { copied: isCopied })} onClick={copyCode}>
           <img src={CopyIcon} alt="icon" />
         </button>
-        {!!onCancel && (
+        {!!onEdit && (
           <Button className="edit-button" onClick={editSecret}>
             <img src={EditIcon} alt="edit" />
           </Button>

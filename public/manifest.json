@@ -2,7 +2,7 @@
   "manifest_version": 3,
 
   "name": "Auther",
-  "description": "Extension for 2fa auths",
+  "description": "Extension for 2FA authentications",
   "version": "1.0",
 
   "icons": {

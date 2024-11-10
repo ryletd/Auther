@@ -7,9 +7,10 @@ import type { UseFormRegister, FieldErrors, RegisterOptions, FieldValues, Path }
 type InputProps<T extends FieldValues> = {
   label?: string;
   name: Path<T>;
-  register: UseFormRegister<T>;
+  register?: UseFormRegister<T>;
   errors: FieldErrors<T>;
   registerOptions?: RegisterOptions<T>;
+  placeholder?: string;
   type?: "text" | "password";
 };
 
@@ -20,6 +21,7 @@ export const Input = <T extends FieldValues>({
   errors,
   registerOptions,
   type = "text",
+  placeholder,
 }: InputProps<T>) => (
   <div className="input-wrapper">
     {label && (
@@ -32,7 +34,8 @@ export const Input = <T extends FieldValues>({
       id={name}
       type={type}
       autoComplete="off"
-      {...register(name, registerOptions)}
+      placeholder={placeholder}
+      {...register?.(name, registerOptions)}
     />
   </div>
 );

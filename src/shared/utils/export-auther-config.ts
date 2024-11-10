@@ -1,7 +1,9 @@
-import { getAutherConfig, setAutherConfig } from "@/shared";
+import { getAutherConfig, setAutherConfig, decryptText } from "@/shared";
+
+import type { AutherConfig } from "@/shared";
 
 export const exportAutherConfig = async (): Promise<void> => {
-  const config = await getAutherConfig();
+  const config = await getAutherConfig(true);
   const extendedConfig = {
     ...config,
     lastExportTime: Date.now(),
@@ -17,5 +19,10 @@ export const exportAutherConfig = async (): Promise<void> => {
 
   window.URL.revokeObjectURL(a.href);
 
-  await setAutherConfig(extendedConfig);
+  const decryptedConfig: AutherConfig = {
+    ...extendedConfig,
+    exportedSecrets: extendedConfig.exportedSecrets.map(decryptText),
+    secrets: extendedConfig.secrets.map((secret) => ({ ...secret, secret: decryptText(secret.secret) })),
+  };
+  await setAutherConfig(decryptedConfig);
 };

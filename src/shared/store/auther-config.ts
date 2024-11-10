@@ -12,10 +12,12 @@ export const useAutherConfigStore = create<AutherConfigState>(() => ({
   autherConfig: DEFAULT_AUTHER_CONFIG,
 }));
 
-export const setAutherConfig = async (autherConfig: AutherConfig) => {
+export const setAutherConfig = async (autherConfig: AutherConfig, save = true) => {
   useAutherConfigStore.setState({ autherConfig });
 
-  await saveAutherConfig(autherConfig);
+  if (save) {
+    await saveAutherConfig(autherConfig);
+  }
 };
 
 export const addSecretCode = async (secret: Omit<Secret, "id" | "addedDate">): Promise<void> => {
@@ -28,18 +30,12 @@ export const addSecretCode = async (secret: Omit<Secret, "id" | "addedDate">): P
 
   const state = {
     ...autherConfig,
-    secrets: autherConfig.secrets.concat({ ...secret, id: getIdFromString(secret.secret), addedDate: Date.now() }),
+    secrets: autherConfig.secrets.concat({
+      ...secret,
+      id: getIdFromString(secret.secret),
+      addedDate: Date.now(),
+    }),
   };
-
-  await setAutherConfig(state);
-};
-
-export const deleteSecretCode = async (secret: string): Promise<void> => {
-  const { autherConfig } = useAutherConfigStore.getState();
-  const exportedSecrets = autherConfig.exportedSecrets.filter((item) => item !== secret);
-  const secrets = autherConfig.secrets.filter((item) => item.secret !== secret);
-
-  const state = { ...autherConfig, exportedSecrets, secrets };
 
   await setAutherConfig(state);
 };
@@ -58,4 +54,26 @@ export const editSecretCode = async (secret: Secret): Promise<void> => {
   };
 
   await setAutherConfig(state);
+};
+
+export const deleteSecretCode = async (secret: string): Promise<void> => {
+  const { autherConfig } = useAutherConfigStore.getState();
+  const exportedSecrets = autherConfig.exportedSecrets.filter((item) => item !== secret);
+  const secrets = autherConfig.secrets.filter((item) => item.secret !== secret);
+
+  const state = { ...autherConfig, exportedSecrets, secrets };
+
+  await setAutherConfig(state);
+};
+
+export const reorderSecretPosition = async (firstSecretId: string, secondSecretId: string): Promise<void> => {
+  const { autherConfig } = useAutherConfigStore.getState();
+  const firstSecretIndex = autherConfig.secrets.findIndex(({ id }) => id === firstSecretId);
+  const secondSecretIndex = autherConfig.secrets.findIndex(({ id }) => id === secondSecretId);
+
+  const secrets = structuredClone(autherConfig.secrets);
+  const [firstSecret] = secrets.splice(firstSecretIndex, 1);
+  secrets.splice(secondSecretIndex, 0, firstSecret);
+
+  await setAutherConfig({ ...autherConfig, secrets });
 };
