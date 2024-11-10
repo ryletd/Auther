@@ -43,7 +43,7 @@ export const Upload = <T extends FieldValues>({ label, name, setValue, watch }: 
         ) : iconExists && icon ? (
           <div className="icon-block">
             <img className="icon" src={icon} alt="close" />
-            <button onClick={handleRemoveIcon} className="button-close" />
+            <button onClick={handleRemoveIcon} className="button-close" type="button" />
           </div>
         ) : (
           <div className="upload-loading">
