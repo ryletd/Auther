@@ -30,7 +30,7 @@ export const DraggableList = ({ id, secrets, children }: DraggableListProps) => 
   return (
     <DndContext>
       <SortableContext items={secrets.map(({ secret }) => secret)} strategy={verticalListSortingStrategy}>
-        <div className="wrapper" ref={setNodeRef}>
+        <div className="draggable-wrapper" ref={setNodeRef}>
           {children}
         </div>
       </SortableContext>
