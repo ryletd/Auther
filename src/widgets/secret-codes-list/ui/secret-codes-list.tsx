@@ -1,6 +1,6 @@
-import { useDeferredValue, useEffect, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
-import { useAutherConfigStore, getAutherConfig, setAutherConfig, Input } from "@/shared";
+import { useAutherConfigStore, getAutherConfig, setAutherConfig, Search } from "@/shared";
 import { DraggableList } from "./draggable-list";
 import { ListItem } from "./list-item";
 
@@ -66,20 +66,16 @@ export const SecretCodesList = ({ editable, setActiveEditSecret, setActiveDelete
   const deferredSearch = useDeferredValue(search);
   const { autherConfig } = useAutherConfigStore();
 
-  const filteredSecrets =
-    autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(deferredSearch.toLowerCase())) ?? [];
+  const filteredSecrets = useMemo(
+    () =>
+      autherConfig?.secrets.filter((secret) => secret.name.toLowerCase().includes(deferredSearch.toLowerCase())) ?? [],
+    [autherConfig?.secrets, deferredSearch]
+  );
 
   return (
     <section>
       {editable && (
-        <Input
-          name="search"
-          type="text"
-          placeholder="Search key..."
-          registerOptions={{ required: false }}
-          onChange={(event) => setSearch(event.target.value)}
-          errors={{}}
-        />
+        <Search name="search" placeholder="Search key..." onChange={(event) => setSearch(event.target.value)} />
       )}
       <List
         editable={editable}
