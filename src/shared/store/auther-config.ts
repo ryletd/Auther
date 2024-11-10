@@ -20,7 +20,7 @@ export const setAutherConfig = async (autherConfig: AutherConfig, save = true) =
   }
 };
 
-export const addSecretCode = async (secret: Omit<Secret, "id" | "position" | "addedDate">): Promise<void> => {
+export const addSecretCode = async (secret: Omit<Secret, "id" | "addedDate">): Promise<void> => {
   const { autherConfig } = useAutherConfigStore.getState();
   const isExist = autherConfig.secrets.find((item) => item.secret === secret.secret);
 
@@ -33,7 +33,6 @@ export const addSecretCode = async (secret: Omit<Secret, "id" | "position" | "ad
     secrets: autherConfig.secrets.concat({
       ...secret,
       id: getIdFromString(secret.secret),
-      position: autherConfig.secrets.length,
       addedDate: Date.now(),
     }),
   };
@@ -60,13 +59,21 @@ export const editSecretCode = async (secret: Secret): Promise<void> => {
 export const deleteSecretCode = async (secret: string): Promise<void> => {
   const { autherConfig } = useAutherConfigStore.getState();
   const exportedSecrets = autherConfig.exportedSecrets.filter((item) => item !== secret);
-  const secrets = autherConfig.secrets
-    .filter((item) => item.secret !== secret)
-    .map((item, index) => ({ ...item, position: index }));
+  const secrets = autherConfig.secrets.filter((item) => item.secret !== secret);
 
   const state = { ...autherConfig, exportedSecrets, secrets };
 
   await setAutherConfig(state);
 };
 
-export const changeSecretPosition = async (): Promise<void> => {};
+export const reorderSecretPosition = async (firstSecretId: string, secondSecretId: string): Promise<void> => {
+  const { autherConfig } = useAutherConfigStore.getState();
+  const firstSecretIndex = autherConfig.secrets.findIndex(({ id }) => id === firstSecretId);
+  const secondSecretIndex = autherConfig.secrets.findIndex(({ id }) => id === secondSecretId);
+
+  const secrets = structuredClone(autherConfig.secrets);
+  const [firstSecret] = secrets.splice(firstSecretIndex, 1);
+  secrets.splice(secondSecretIndex, 0, firstSecret);
+
+  await setAutherConfig({ ...autherConfig, secrets });
+};

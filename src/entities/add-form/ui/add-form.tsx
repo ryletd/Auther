@@ -11,7 +11,7 @@ type AddFormProps = {
   onClose: () => void;
 };
 
-type AddFormValues = Omit<Secret, "id" | "position" | "addedDate">;
+type AddFormValues = Omit<Secret, "id" | "addedDate">;
 
 const defaultValues: AddFormValues = {
   name: "",
@@ -33,7 +33,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
   const iconExists = usePictureExists(icon);
 
   const onSubmit = async (values: AddFormValues) => {
-    const extendedValues: Omit<Secret, "id" | "position" | "addedDate"> = {
+    const extendedValues: Omit<Secret, "id" | "addedDate"> = {
       name: values.name,
       secret: values.secret.replace(/\s/g, "").toUpperCase(),
       icon: values.icon,

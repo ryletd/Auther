@@ -24,14 +24,17 @@ export const SettingsForm = ({ onClose }: SettingsFormType) => {
       return;
     }
 
-    readFile(file).then((data) => importAutherConfig(JSON.parse(data)));
+    readFile(file).then((data) => {
+      importAutherConfig(JSON.parse(data));
+      onClose();
+    });
   };
 
   return (
     <div className="settings-form">
       <h2 className="title">Extension settings</h2>
       <div className="settings-buttons">
-        <Button className="settings-button" onClick={exportAutherConfig}>
+        <Button className="settings-button" onClick={() => exportAutherConfig().then(onClose)}>
           <p className="settings-button-text">Export</p>
           <img className="settings-button-picture" src={ExportIcon} alt="export" />
         </Button>
