@@ -4,7 +4,7 @@ import { CSS } from "@dnd-kit/utilities";
 
 import "./draggable-list.sass";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type { DraggableAttributes } from "@dnd-kit/core";
 import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import type { Secret } from "@/shared";
@@ -20,7 +20,7 @@ type DraggableProps = {
   children: (
     ref: (element: HTMLElement | null) => void,
     dragHandleProps: DraggableAttributes | SyntheticListenerMap,
-    style: any
+    style: CSSProperties
   ) => ReactNode;
 };
 

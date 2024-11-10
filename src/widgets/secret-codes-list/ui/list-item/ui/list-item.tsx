@@ -51,7 +51,11 @@ export const ListItem = ({ secret, progress, onEdit, onDelete, dragHandleProps }
 
   return (
     <div className={classNames("list-item", { copied: isCopied })} onClick={copyCode}>
-      {dragHandleProps && <div className="drop" {...dragHandleProps} />}
+      {dragHandleProps && (
+        <button className="drag-button" {...dragHandleProps}>
+          <div />
+        </button>
+      )}
       {secret.icon && iconExists ? (
         <img className={classNames("icon", { warning })} src={secret.icon} alt="icon" />
       ) : (
