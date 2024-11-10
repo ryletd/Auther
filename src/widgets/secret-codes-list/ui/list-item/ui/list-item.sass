@@ -19,15 +19,15 @@
 
   .drop
     display: flex
-    flex-direction: column
-    font-weight: 600
-    transform: rotate(270deg)
-    margin-right: 0.6rem
+
     &::after, &::before
-      content: '...'
-      letter-spacing: 0.3rem
-      font-size: 1.5rem
-      font-weight: 600
+      display: block
+      width: 1rem
+      height: 2.6rem
+      content: ''
+      border-left: 0.2rem solid $gray
+      border-radius: 0.2rem
+      
 
   .icon
     user-select: none
