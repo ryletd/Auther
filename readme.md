@@ -1,6 +1,8 @@
-## Extension for using 2fa codes in chrome extension
+# Extension for using 2fa codes in chrome extension
 
-## Installation
+## Install from [Chrome extensions store](https://chromewebstore.google.com/detail/youtool/jeaobemjhhookdolpimojldgebheoggj)
+
+## Custom installation
 
 ### The extension is located in the `dist` folder. To install the extension, you need to:
 
