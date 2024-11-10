@@ -1,5 +1,3 @@
-# Instruction
-
 ## Extension for using 2fa codes in chrome extension
 
 ## Installation
