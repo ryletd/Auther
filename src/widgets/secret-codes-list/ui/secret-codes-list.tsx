@@ -1,4 +1,4 @@
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useState, useEffect, useMemo, useDeferredValue, memo } from "react";
 
 import { useAutherConfigStore, getAutherConfig, setAutherConfig, Search } from "@/shared";
 import { DraggableList } from "./draggable-list";
@@ -23,7 +23,7 @@ type ListProps = {
   setActiveDeleteSecret?: Dispatch<SetStateAction<Secret | null>>;
 };
 
-export const List = ({ secrets, editable = false, setActiveEditSecret, setActiveDeleteSecret }: ListProps) => {
+export const List = memo(({ secrets, editable = false, setActiveEditSecret, setActiveDeleteSecret }: ListProps) => {
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export const List = ({ secrets, editable = false, setActiveEditSecret, setActive
       )}
     </div>
   );
-};
+});
 
 export const SecretCodesList = ({ editable, setActiveEditSecret, setActiveDeleteSecret }: SecretCodesListProps) => {
   const [search, setSearch] = useState("");
