@@ -1,13 +1,13 @@
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useAutherConfigStore, getAutherConfig, setAutherConfig, InputSearch } from "@/shared";
-import { DraggableList, Draggable } from "./draggable-list";
+import { DraggableList } from "./draggable-list";
 import { ListItem } from "./list-item";
+
+import "./secret-codes-list.sass";
 
 import type { Dispatch, SetStateAction } from "react";
 import type { Secret } from "@/shared";
-
-import "./secret-codes-list.sass";
 
 type SecretCodesListProps = {
   searchValue?: string;
@@ -47,25 +47,15 @@ export const List = ({ secrets, editable = false, setActiveEditSecret, setActive
   return (
     <div className="list-wrapper">
       {editable ? (
-        <DraggableList id="draggable" secrets={secrets}>
-          {secrets.map((secret) => (
-            <Draggable id={secret.secret} key={secret.secret}>
-              {(ref, dragHandleProps, style) => (
-                <div ref={ref} style={style}>
-                  <ListItem
-                    secret={secret}
-                    progress={progress}
-                    onEdit={setActiveEditSecret}
-                    onDelete={setActiveDeleteSecret}
-                    dragHandleProps={dragHandleProps}
-                  />
-                </div>
-              )}
-            </Draggable>
-          ))}
-        </DraggableList>
+        <DraggableList
+          id="draggable"
+          secrets={secrets}
+          progress={progress}
+          setActiveEditSecret={setActiveEditSecret}
+          setActiveDeleteSecret={setActiveDeleteSecret}
+        />
       ) : (
-        secrets.map((secret) => <ListItem key={secret.secret} secret={secret} progress={progress} />)
+        secrets.map((secret) => <ListItem key={secret.id} secret={secret} progress={progress} />)
       )}
     </div>
   );
