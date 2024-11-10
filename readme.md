@@ -1,4 +1,4 @@
-# Extension for using 2fa codes in chrome extension
+# Extension for using 2FA codes in chrome extension
 
 ## Install from [Chrome extensions store](https://chromewebstore.google.com/detail/youtool/jeaobemjhhookdolpimojldgebheoggj)
 
@@ -16,10 +16,10 @@
 
 ## **Options**
 
-- Add/Edit/Delete new 2fa code
+- Add/Edit/Delete new 2FA code
 
 ![settings](https://i.ibb.co/X8TYC6M/72a7f8f2c205.png)
 
-- Import/Export all 2fa codes
+- Import/Export all 2FA codes
 
 ![options](https://i.ibb.co/P9Kw7FJ/f0de9f736ce7.png)

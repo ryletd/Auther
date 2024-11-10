@@ -46,7 +46,7 @@ export const AddForm = ({ onClose }: AddFormProps) => {
 
   return (
     <form className="add-form" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="title">Add new 2fa code</h2>
+      <h2 className="title">Add new 2FA code</h2>
       <Input<AddFormValues>
         name="name"
         label="Name"
