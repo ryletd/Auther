@@ -6,6 +6,7 @@ import { ListItem } from "./list-item";
 
 import type { Dispatch, SetStateAction } from "react";
 import type { Secret } from "@/shared";
+
 import "./secret-codes-list.sass";
 
 type SecretCodesListProps = {

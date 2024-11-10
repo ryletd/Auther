@@ -2,9 +2,8 @@ import classNames from "classnames";
 
 import "./input.sass";
 
-import type { UseFormRegister, FieldErrors, RegisterOptions, FieldValues, Path } from "react-hook-form";
-
 import type { ChangeEvent } from "react";
+import type { UseFormRegister, FieldErrors, RegisterOptions, FieldValues, Path } from "react-hook-form";
 
 type InputProps<T extends FieldValues> = {
   label?: string;
