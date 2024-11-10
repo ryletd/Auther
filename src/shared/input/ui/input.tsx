@@ -2,14 +2,12 @@ import classNames from "classnames";
 
 import "./input.sass";
 
-import type { ChangeEvent } from "react";
 import type { UseFormRegister, FieldErrors, RegisterOptions, FieldValues, Path } from "react-hook-form";
 
 type InputProps<T extends FieldValues> = {
   label?: string;
   name: Path<T>;
   register?: UseFormRegister<T>;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   errors: FieldErrors<T>;
   registerOptions?: RegisterOptions<T>;
   placeholder?: string;
@@ -20,7 +18,6 @@ export const Input = <T extends FieldValues>({
   label,
   name,
   register,
-  onChange,
   errors,
   registerOptions,
   type = "text",
@@ -38,7 +35,7 @@ export const Input = <T extends FieldValues>({
       type={type}
       autoComplete="off"
       placeholder={placeholder}
-      {...(onChange ? { onChange } : (register?.(name, registerOptions) ?? {}))}
+      {...register?.(name, registerOptions)}
     />
   </div>
 );
