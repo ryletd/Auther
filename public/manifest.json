@@ -2,8 +2,8 @@
   "manifest_version": 3,
 
   "name": "Auther",
-  "description": "Extension for 2FA authentications",
-  "version": "1.0",
+  "description": "Free 2FA Authenticator app, Chrome extension alternative to Google Authenticator.",
+  "version": "1.2",
 
   "icons": {
     "512": "favicon.png"
